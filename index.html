@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Collection AB Tests — Dashboard</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --card-highlight-bg: #1e293b;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --accent: #3b82f6;
+        --green: #22c55e;
+        --red: #ef4444;
+        --yellow: #eab308;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.5;
+        padding: 2rem;
+    }
+
+    .dashboard-header {
+        max-width: 1200px;
+        margin: 0 auto 2rem;
+        text-align: center;
+    }
+
+    .dashboard-header h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .dashboard-header .subtitle {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+    }
+
+    .summary-bar {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+        margin: 1.5rem auto;
+        max-width: 1200px;
+    }
+
+    .summary-item {
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 1rem 1.5rem;
+        text-align: center;
+        min-width: 140px;
+    }
+
+    .summary-item .number {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: var(--accent);
+    }
+
+    .summary-item .label {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .experiment-card {
+        max-width: 1200px;
+        margin: 1.25rem auto;
+        background: var(--card-bg);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform 0.15s;
+    }
+
+    .experiment-card:hover {
+        transform: translateY(-1px);
+    }
+
+    .card-highlight {
+        border-left: 3px solid var(--accent);
+    }
+
+    .card-header {
+        padding: 1.25rem 1.5rem 0.75rem;
+    }
+
+    .card-title-row {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .card-title-row h2 {
+        font-size: 1.1rem;
+        font-weight: 600;
+    }
+
+    .wiki-link {
+        font-size: 0.75rem;
+        color: var(--accent);
+        text-decoration: none;
+        border: 1px solid var(--accent);
+        padding: 2px 8px;
+        border-radius: 4px;
+        opacity: 0.8;
+    }
+
+    .wiki-link:hover { opacity: 1; }
+
+    .card-meta {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-top: 0.4rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        flex-wrap: wrap;
+    }
+
+    .status-dot {
+        display: inline-block;
+        width: 8px; height: 8px;
+        border-radius: 50%;
+    }
+
+    .status-running { background: var(--green); box-shadow: 0 0 6px var(--green); }
+    .status-observing { background: var(--yellow); box-shadow: 0 0 6px var(--yellow); }
+    .status-completed { background: var(--text-muted); }
+    .status-unknown { background: var(--text-muted); }
+
+    .card-body {
+        padding: 0 1.5rem 1.25rem;
+        overflow-x: auto;
+    }
+
+    .metrics-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.85rem;
+    }
+
+    .metrics-table thead th {
+        text-align: left;
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid var(--border);
+        color: var(--text-muted);
+        font-weight: 500;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    .metrics-table tbody tr {
+        border-bottom: 1px solid rgba(51, 65, 85, 0.5);
+    }
+
+    .metrics-table tbody tr:last-child { border-bottom: none; }
+
+    .metrics-table td {
+        padding: 0.4rem 0.75rem;
+        white-space: nowrap;
+    }
+
+    .metric-name {
+        font-weight: 500;
+        color: var(--text);
+    }
+
+    .metric-val {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .metric-diff {
+        text-align: right;
+        font-variant-numeric: tabular-nums;
+    }
+
+    .metric-sig {
+        text-align: center;
+    }
+
+    .acc-count {
+        color: var(--text-muted);
+        font-weight: 400;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        white-space: nowrap;
+    }
+
+    .badge-control { background: #374151; color: #9ca3af; }
+    .badge-ns { background: #1f2937; color: #6b7280; }
+    .badge-sig-pos { background: rgba(22, 163, 74, 0.15); color: #4ade80; }
+    .badge-sig-neg { background: rgba(220, 38, 38, 0.15); color: #f87171; }
+    .badge-mod-pos { background: rgba(34, 197, 94, 0.1); color: #86efac; }
+    .badge-mod-neg { background: rgba(239, 68, 68, 0.1); color: #fca5a5; }
+
+    .footer {
+        max-width: 1200px;
+        margin: 2rem auto 0;
+        text-align: center;
+        color: var(--text-muted);
+        font-size: 0.75rem;
+    }
+
+    @media (max-width: 768px) {
+        body { padding: 1rem; }
+        .summary-bar { flex-wrap: wrap; gap: 0.75rem; }
+        .summary-item { min-width: 100px; padding: 0.75rem; }
+    }
+
+    @media print {
+        body { background: #fff; color: #111; padding: 1rem; }
+        .experiment-card { border: 1px solid #ccc; page-break-inside: avoid; }
+        .card-bg, .summary-item { background: #f9f9f9; }
+        .badge-sig-pos { color: green; }
+        .badge-sig-neg { color: red; }
+    }
+</style>
+</head>
+<body>
+
+<div class="dashboard-header">
+    <h1>Collection AB Tests Dashboard</h1>
+    <p class="subtitle">Experiment results overview &mdash; April 14, 2026</p>
+</div>
+
+<div class="summary-bar">
+    <div class="summary-item">
+        <div class="number">14</div>
+        <div class="label">Experiments</div>
+    </div>
+    <div class="summary-item">
+        <div class="number" style="color: var(--green);">3</div>
+        <div class="label">Running</div>
+    </div>
+    <div class="summary-item">
+        <div class="number" style="color: var(--yellow);">2</div>
+        <div class="label">Observing</div>
+    </div>
+    <div class="summary-item">
+        <div class="number" style="color: var(--text-muted);">9</div>
+        <div class="label">Completed</div>
+    </div>
+</div>
+
+
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>3rd Party Phone Prioritization (31+ DPD)</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2462744577/3rd+parties+phone+numbers+prioritization+-+Feb26" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-observing"></span>
+                    <span class="status-text">Observation period — 29d until results</span>
+                    <span class="period">2026-04-09 - 2026-04-13</span>
+                    <span class="acc-count">Control: n=5,455</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>Test<br><small class="acc-count">n=5,458</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Contact Rate</td><td class="metric-val">8.47%</td><td class="metric-val">7.28%</td>
+                <td class="metric-diff" style="color: #ef4444; font-weight: 600;">-1.19pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-62,187</td><td class="metric-val">$19,841</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$82,028</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$179,821</td><td class="metric-val">$216,228</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$36,408</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card ">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>3rd Party Phone Prioritization (8 DPD)</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2462744577/3rd+parties+phone+numbers+prioritization+-+Feb26" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-running"></span>
+                    <span class="status-text">Active — 0d left in segmentation</span>
+                    <span class="period">2026-04-09 - 2026-04-09</span>
+                    <span class="acc-count">Control: n=1,242</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>Test<br><small class="acc-count">n=1,245</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Contact Rate</td><td class="metric-val">21.42%</td><td class="metric-val">22.33%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.91pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$129,358</td><td class="metric-val">$190,176</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$60,818</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$84,122</td><td class="metric-val">$97,538</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$13,417</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card ">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>WA CoPilot</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2632384579/AB+-+Test+CoPilot+WA" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-running"></span>
+                    <span class="status-text">Active — 0d left in segmentation</span>
+                    <span class="period">2026-04-01 - 2026-04-13</span>
+                    <span class="acc-count">Control: n=314,260</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>WA Copilot<br><small class="acc-count">n=314,259</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">6.49%</td><td class="metric-val">5.92%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.57pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">100.00%</td><td class="metric-val">—</td>
+                <td class="metric-diff" style="color: #6b7280; font-weight: 600;">—</td>
+                <td class="metric-sig"><span class="badge badge-ns">N/A</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">6.69%</td><td class="metric-val">6.03%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.66pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">100.00%</td><td class="metric-val">—</td>
+                <td class="metric-diff" style="color: #6b7280; font-weight: 600;">—</td>
+                <td class="metric-sig"><span class="badge badge-ns">N/A</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">96.60%</td><td class="metric-val">96.36%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.24pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-14,759,236</td><td class="metric-val">$-15,531,890</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">$-772,654</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$36,280,510</td><td class="metric-val">$36,648,290</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$367,780</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card ">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>PDS VMD Provocateur</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2484830658/PDS+VMD+provocateur+Feb+26" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-03-24 - 2026-03-28</span>
+                    <span class="acc-count">Control: n=25,346</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>VMD new<br><small class="acc-count">n=25,356</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">42.03%</td><td class="metric-val">41.58%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.44pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">4.22%</td><td class="metric-val">3.86%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.36pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">37.73%</td><td class="metric-val">38.15%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.42pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">4.33%</td><td class="metric-val">3.86%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.46pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">50.06%</td><td class="metric-val">49.55%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.51pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-700,987</td><td class="metric-val">$-238,611</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$462,376</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$248,249</td><td class="metric-val">$329,440</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$81,191</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>Banco Plata Notifications</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2617902078/AB+Test+-+Banco+Plata+Notifications" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-03-19 - 2026-03-19</span>
+                    <span class="acc-count">Control: n=104,144</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>Banco Plata <br><small class="acc-count">n=104,127</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">0.03%</td><td class="metric-val">0.04%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.01pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">1.00%</td><td class="metric-val">1.01%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.01pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">0.02%</td><td class="metric-val">0.02%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.00pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">0.73%</td><td class="metric-val">0.72%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.00pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">4.43%</td><td class="metric-val">10.64%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">+6.21pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-536,389</td><td class="metric-val">$-15,192</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$521,197</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$753,672</td><td class="metric-val">$1,211,991</td>
+                <td class="metric-diff" style="color: #86efac; font-weight: 600;">+$458,319</td>
+                <td class="metric-sig"><span class="badge badge-mod-pos">p &lt; 5%</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card ">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>MAB WA Collection</h2>
+                    
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-running"></span>
+                    <span class="status-text">Active — 0d left in segmentation</span>
+                    <span class="period">2026-03-18 - 2026-04-11</span>
+                    <span class="acc-count">Control: n=19,973</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>VMD new <br><small class="acc-count">n=19,985</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">47.82%</td><td class="metric-val">47.01%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.80pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">4.69%</td><td class="metric-val">4.50%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.19pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">42.44%</td><td class="metric-val">43.32%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.87pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">5.24%</td><td class="metric-val">4.23%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-1.01pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">51.98%</td><td class="metric-val">52.40%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.41pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-977,334</td><td class="metric-val">$-445,044</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$532,290</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$442,365</td><td class="metric-val">$599,613</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$157,248</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>New WABA 8-15 DPD</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2574155777/AB+Test+-+WABA+8-15+new+scheme" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-03-12 - 2026-03-19</span>
+                    <span class="acc-count">Control: n=111,372</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>New WABA:66<br><small class="acc-count">n=222,589</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">55.88%</td><td class="metric-val">55.41%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.46pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">3.77%</td><td class="metric-val">3.78%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.01pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">100.00%</td><td class="metric-val">100.00%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">—</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">51.47%</td><td class="metric-val">52.16%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.69pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">3.25%</td><td class="metric-val">4.16%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.91pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">100.00%</td><td class="metric-val">100.00%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">—</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Inflow 1 (#)</td><td class="metric-val">16.99%</td><td class="metric-val">16.92%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.06pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Inflow 1 ($)</td><td class="metric-val">13.53%</td><td class="metric-val">13.27%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.26pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">63.57%</td><td class="metric-val">63.87%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.30pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-10,759,529</td><td class="metric-val">$-21,305,353</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">$-10,545,825</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$18,444,060</td><td class="metric-val">$36,145,679</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">+$17,701,619</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>PDS Suggestions</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2364375130/BA+Test+Suggestions+for+PDS" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-03-11 - 2026-03-19</span>
+                    <span class="acc-count">Control: n=114,689</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>Suggestions<br><small class="acc-count">n=114,452</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">29.25%</td><td class="metric-val">29.22%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.02pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">32.70%</td><td class="metric-val">32.82%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.12pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">8.39%</td><td class="metric-val">8.49%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.10pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">24.08%</td><td class="metric-val">24.55%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.47pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">26.77%</td><td class="metric-val">27.85%</td>
+                <td class="metric-diff" style="color: #86efac; font-weight: 600;">+1.08pp</td>
+                <td class="metric-sig"><span class="badge badge-mod-pos">p &lt; 5%</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">6.85%</td><td class="metric-val">7.32%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.47pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">33.18%</td><td class="metric-val">33.40%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.21pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-6,810,753</td><td class="metric-val">$-3,661,733</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">+$3,149,020</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$13,137,692</td><td class="metric-val">$14,347,765</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">+$1,210,073</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>Kobra Field Visits v3 (31+ DPD)</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2136965174/Kobra+field+visit+test+v3+31-60+dpd" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-observing"></span>
+                    <span class="status-text">Observation period — 15d until results</span>
+                    <span class="period">2026-03-09 - 2026-03-30</span>
+                    <span class="acc-count">Control: n=1,783</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>Kobra on-top<br><small class="acc-count">n=1,780</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Contact Rate</td><td class="metric-val">20.33%</td><td class="metric-val">23.43%</td>
+                <td class="metric-diff" style="color: #22c55e; font-weight: 600;">+3.10pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-656,150</td><td class="metric-val">$-245,045</td>
+                <td class="metric-diff" style="color: #86efac; font-weight: 600;">+$411,105</td>
+                <td class="metric-sig"><span class="badge badge-mod-pos">p &lt; 5%</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$-432,059</td><td class="metric-val">$-290,463</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$141,597</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>STP CLABE Notifications</h2>
+                    
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-03-05 - 2026-03-12</span>
+                    <span class="acc-count">Control: n=16,000</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>STP clabe <br><small class="acc-count">n=16,000</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">55.86%</td><td class="metric-val">58.74%</td>
+                <td class="metric-diff" style="color: #86efac; font-weight: 600;">+2.88pp</td>
+                <td class="metric-sig"><span class="badge badge-mod-pos">p &lt; 5%</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">48.16%</td><td class="metric-val">51.32%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+3.16pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">0.94%</td><td class="metric-val">0.93%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.02pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">57.23%</td><td class="metric-val">57.26%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.04pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">45.47%</td><td class="metric-val">41.79%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-3.68pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">1.93%</td><td class="metric-val">0.30%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-1.62pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Inflow 1 (#)</td><td class="metric-val">14.56%</td><td class="metric-val">16.74%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">+2.18pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Inflow 1 ($)</td><td class="metric-val">11.40%</td><td class="metric-val">14.20%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">+2.80pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">65.23%</td><td class="metric-val">67.76%</td>
+                <td class="metric-diff" style="color: #22c55e; font-weight: 600;">+2.53pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-1,742,617</td><td class="metric-val">$-2,260,248</td>
+                <td class="metric-diff" style="color: #fca5a5; font-weight: 600;">$-517,631</td>
+                <td class="metric-sig"><span class="badge badge-mod-neg">p &lt; 5%</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$4,782,180</td><td class="metric-val">$4,448,891</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">$-333,289</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>WA Social Behaviour (1-7 DPD)</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2457895091/AB+Test+-+WA+-+Social+Behaviour+1-7+DPD" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-03-03 - 2026-03-10</span>
+                    <span class="acc-count">Control: n=36,799</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>New WA<br><small class="acc-count">n=36,807</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">60.16%</td><td class="metric-val">59.33%</td>
+                <td class="metric-diff" style="color: #fca5a5; font-weight: 600;">-0.83pp</td>
+                <td class="metric-sig"><span class="badge badge-mod-neg">p &lt; 5%</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">73.32%</td><td class="metric-val">72.64%</td>
+                <td class="metric-diff" style="color: #fca5a5; font-weight: 600;">-0.68pp</td>
+                <td class="metric-sig"><span class="badge badge-mod-neg">p &lt; 5%</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">1.78%</td><td class="metric-val">2.18%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.40pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">55.49%</td><td class="metric-val">54.94%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.55pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">68.60%</td><td class="metric-val">68.53%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.07pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">1.82%</td><td class="metric-val">1.69%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.13pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">50.12%</td><td class="metric-val">50.99%</td>
+                <td class="metric-diff" style="color: #22c55e; font-weight: 600;">+0.87pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-5,371,056</td><td class="metric-val">$-4,614,763</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$756,294</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$10,889,776</td><td class="metric-val">$11,148,252</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$258,476</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>Pre-Collection: AI Bots vs Human Agents</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2404253816/AI+calls+Pre+ollection+Feb26+vendors+vs+human+agents" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-03-02 - 2026-03-27</span>
+                    <span class="acc-count">Control: n=54,358</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>AI Rudder <br><small class="acc-count">n=54,360</small></th><th>Diff</th><th>Sig.</th><th>AIphoria <br><small class="acc-count">n=54,357</small></th><th>Diff</th><th>Sig.</th><th>Cybernet <br><small class="acc-count">n=54,352</small></th><th>Diff</th><th>Sig.</th><th>Human agent <br><small class="acc-count">n=54,358</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">52.08%</td><td class="metric-val">44.92%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-7.16pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">46.24%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-5.83pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">47.35%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-4.72pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">48.87%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-3.21pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">60.51%</td><td class="metric-val">53.55%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-6.96pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">55.70%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-4.82pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">57.13%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-3.38pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">57.93%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-2.58pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">1.68%</td><td class="metric-val">2.39%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.70pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">2.74%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+1.06pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">2.35%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.67pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">1.78%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.10pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">48.00%</td><td class="metric-val">42.78%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-5.21pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">42.65%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-5.34pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">44.03%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-3.97pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">46.17%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-1.83pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">55.13%</td><td class="metric-val">51.32%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-3.81pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">52.39%</td>
+                <td class="metric-diff" style="color: #fca5a5; font-weight: 600;">-2.74pp</td>
+                <td class="metric-sig"><span class="badge badge-mod-neg">p &lt; 5%</span></td><td class="metric-val">52.35%</td>
+                <td class="metric-diff" style="color: #fca5a5; font-weight: 600;">-2.78pp</td>
+                <td class="metric-sig"><span class="badge badge-mod-neg">p &lt; 5%</span></td><td class="metric-val">54.65%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.48pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">1.42%</td><td class="metric-val">2.62%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+1.20pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">3.34%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+1.92pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">1.40%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.02pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">1.09%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.33pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Inflow 1 (#)</td><td class="metric-val">36.25%</td><td class="metric-val">30.39%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-5.86pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">31.35%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-4.90pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">32.27%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-3.98pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">32.27%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-3.98pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Inflow 1 ($)</td><td class="metric-val">32.16%</td><td class="metric-val">27.97%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-4.19pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">28.59%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-3.56pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">29.52%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-2.64pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">29.69%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">-2.47pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">94.81%</td><td class="metric-val">97.09%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">+2.27pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">96.84%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">+2.02pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">96.26%</td>
+                <td class="metric-diff" style="color: #16a34a; font-weight: 600;">+1.45pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 0.1%</span></td><td class="metric-val">41.02%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">-53.80pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-15,127,967</td><td class="metric-val">$-14,243,589</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$884,378</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">$-14,543,853</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$584,114</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">$-14,941,736</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$186,231</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td><td class="metric-val">$-13,903,369</td>
+                <td class="metric-diff" style="color: #86efac; font-weight: 600;">+$1,224,598</td>
+                <td class="metric-sig"><span class="badge badge-mod-pos">p &lt; 5%</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$17,080,498</td><td class="metric-val">$15,363,286</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">$-1,717,211</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">$15,606,374</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">$-1,474,123</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">$16,196,723</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">$-883,774</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td><td class="metric-val">$16,129,370</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">$-951,127</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>Three Days Strategy (16-30 DPD)</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2488074298/AB+Test+-+16-30+Three+Days+instead+of+Due+Date" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-02-25 - 2026-03-04</span>
+                    <span class="acc-count">Control: n=9,417</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>Test<br><small class="acc-count">n=9,410</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">32.16%</td><td class="metric-val">33.25%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+1.09pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">28.60%</td><td class="metric-val">29.61%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+1.01pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">41.46%</td><td class="metric-val">42.82%</td>
+                <td class="metric-diff" style="color: #22c55e; font-weight: 600;">+1.36pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-303,216</td><td class="metric-val">$236,285</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$539,501</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$1,662,925</td><td class="metric-val">$1,871,123</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$208,198</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="experiment-card card-highlight">
+            <div class="card-header">
+                <div class="card-title-row">
+                    <h2>Turn Off Notifications (-6 DPD)</h2>
+                    <a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2492268792/AB+Test+-+Turn+off+all+notifications+for+customers+in+-6+DPD+PreCollection+CCR" target="_blank" class="wiki-link">Wiki</a>
+                </div>
+                <div class="card-meta">
+                    <span class="status-dot status-completed"></span>
+                    <span class="status-text">Completed</span>
+                    <span class="period">2026-02-24 - 2026-03-07</span>
+                    <span class="acc-count">Control: n=352,548</span>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="metrics-table">
+                    <thead><tr><th>Metric</th><th>Control</th><th>NTF off<br><small class="acc-count">n=352,457</small></th><th>Diff</th><th>Sig.</th></tr></thead>
+                    <tbody><tr><td class="metric-name">Cure 7d (#)</td><td class="metric-val">62.54%</td><td class="metric-val">62.96%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.41pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d (#)</td><td class="metric-val">74.37%</td><td class="metric-val">75.16%</td>
+                <td class="metric-diff" style="color: #22c55e; font-weight: 600;">+0.79pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 1%</span></td></tr><tr><td class="metric-name">Cure 30d (#)</td><td class="metric-val">2.15%</td><td class="metric-val">1.97%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.18pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 7d ($)</td><td class="metric-val">59.42%</td><td class="metric-val">59.74%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.32pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 15d ($)</td><td class="metric-val">70.81%</td><td class="metric-val">71.69%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.88pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Cure 30d ($)</td><td class="metric-val">1.79%</td><td class="metric-val">1.72%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">-0.07pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Inflow 1 (#)</td><td class="metric-val">14.85%</td><td class="metric-val">15.22%</td>
+                <td class="metric-diff" style="color: #dc2626; font-weight: 600;">+0.37pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 0.1%</span></td></tr><tr><td class="metric-name">Inflow 1 ($)</td><td class="metric-val">11.62%</td><td class="metric-val">11.86%</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+0.24pp</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Contact Rate</td><td class="metric-val">67.20%</td><td class="metric-val">66.18%</td>
+                <td class="metric-diff" style="color: #ef4444; font-weight: 600;">-1.02pp</td>
+                <td class="metric-sig"><span class="badge badge-sig-neg">p &lt; 1%</span></td></tr><tr><td class="metric-name">COR (Pre-Due)</td><td class="metric-val">$-34,329,432</td><td class="metric-val">$-33,687,327</td>
+                <td class="metric-diff" style="color: #9ca3af; font-weight: 600;">+$642,104</td>
+                <td class="metric-sig"><span class="badge badge-ns">Not sig.</span></td></tr><tr><td class="metric-name">Net Yield (Pre-Due)</td><td class="metric-val">$83,840,646</td><td class="metric-val">$85,371,616</td>
+                <td class="metric-diff" style="color: #22c55e; font-weight: 600;">+$1,530,970</td>
+                <td class="metric-sig"><span class="badge badge-sig-pos">p &lt; 1%</span></td></tr></tbody>
+                </table>
+            </div>
+        </div>
+        
+
+<div class="footer">
+    <p>Generated on April 14, 2026 from OVERVIEW_AB &middot; Bootstrap significance testing &middot; Collection Analytics</p>
+</div>
+
+</body>
+</html>
