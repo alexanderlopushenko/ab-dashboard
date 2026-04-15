@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segmentation QA — bureau_cdc_4k_b2_v4_2026_04</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --accent: #3b82f6;
+        --green: #22c55e;
+        --red: #ef4444;
+        --yellow: #eab308;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg); color: var(--text); line-height: 1.5; padding: 2rem;
+    }
+    .header {
+        max-width: 1100px; margin: 0 auto 2rem; text-align: center;
+    }
+    .header h1 {
+        font-size: 1.75rem; font-weight: 700;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .header .sub { color: var(--text-muted); font-size: 0.9rem; }
+    .card {
+        max-width: 1100px; margin: 1.25rem auto;
+        background: var(--card-bg); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1.25rem 1.5rem; overflow-x: auto;
+    }
+    .card h2 {
+        font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .kpi-row { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .kpi {
+        background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+        padding: 0.75rem 1.25rem; text-align: center; min-width: 120px;
+    }
+    .kpi-val { display: block; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .kpi-label { display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead th {
+        text-align: left; padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid var(--border); color: var(--text-muted);
+        font-weight: 500; font-size: 0.8rem; white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid rgba(51,65,85,0.5); }
+    tbody tr:last-child { border-bottom: none; }
+    td { padding: 0.4rem 0.75rem; white-space: nowrap; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .muted { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .badge {
+        display: inline-block; padding: 2px 8px; border-radius: 4px;
+        font-size: 0.75rem; font-weight: 600;
+    }
+    .badge-ok { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-warn { background: rgba(234,179,8,0.15); color: #facc15; }
+    .sig-fail { background: rgba(239,68,68,0.07); }
+    .bar-bg {
+        display: inline-block; width: 120px; height: 10px;
+        background: var(--border); border-radius: 5px; vertical-align: middle;
+    }
+    .bar-fill { height: 100%; border-radius: 5px; }
+    .bar-label { font-size: 0.8rem; margin-left: 0.4rem; color: var(--text-muted); }
+    .footer {
+        max-width: 1100px; margin: 2rem auto 0; text-align: center;
+        color: var(--text-muted); font-size: 0.75rem;
+    }
+    @media (max-width: 768px) {
+        body { padding: 1rem; }
+        .kpi-row { gap: 0.75rem; }
+        .kpi { min-width: 90px; padding: 0.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Segmentation QA</h1>
+    <p class="sub">bureau_cdc_4k_b2_v4_2026_04 &mdash; 2026-04-14</p>
+</div>
+
+
+    <div class="card">
+        <h2>Detected Filters</h2>
+        <p class="muted">Auto-detected from test population, applied to eligible population query</p>
+        <div class="kpi-row">
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">31</span><span class="kpi-label">dpd_start_day</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">P_CURRENT</span><span class="kpi-label">account_type</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">ff_flg</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">death_flg</span></div>
+        </div>
+    </div>
+
+        <div class="card">
+            <h2>1. Test Overview</h2>
+            <div class="kpi-row">
+                <div class="kpi"><span class="kpi-val">2</span><span class="kpi-label">Groups</span></div>
+                <div class="kpi"><span class="kpi-val">2026-04-09</span><span class="kpi-label">Start</span></div>
+                <div class="kpi"><span class="kpi-val">2026-04-13</span><span class="kpi-label">End</span></div>
+                <div class="kpi"><span class="kpi-val">1,981</span><span class="kpi-label">Total Accounts</span></div>
+            </div>
+            <table><thead><tr><th>Date</th><th>Group</th><th>Accounts</th></tr></thead>
+            <tbody><tr><td>2026-04-09</td><td>A</td><td class='num'>458</td></tr>
+<tr><td>2026-04-09</td><td>B</td><td class='num'>460</td></tr>
+<tr><td>2026-04-10</td><td>A</td><td class='num'>113</td></tr>
+<tr><td>2026-04-10</td><td>B</td><td class='num'>115</td></tr>
+<tr><td>2026-04-11</td><td>A</td><td class='num'>103</td></tr>
+<tr><td>2026-04-11</td><td>B</td><td class='num'>103</td></tr>
+<tr><td>2026-04-12</td><td>A</td><td class='num'>157</td></tr>
+<tr><td>2026-04-12</td><td>B</td><td class='num'>159</td></tr>
+<tr><td>2026-04-13</td><td>A</td><td class='num'>155</td></tr>
+<tr><td>2026-04-13</td><td>B</td><td class='num'>158</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>2. Test Overlaps <span class="badge badge-warn">8 overlap(s)</span></h2>
+            <table><thead><tr><th>Our Group</th><th>Overlapped Test</th><th>Their Group</th><th>Shared Accounts</th></tr></thead>
+            <tbody><tr><td>A</td><td>agency_0001</td><td>A</td><td class='num'>3</td></tr>
+<tr><td>A</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>A</td><td class='num'>986</td></tr>
+<tr><td>A</td><td>stp_notif_v2_04_03_26</td><td>A</td><td class='num'>24</td></tr>
+<tr><td>A</td><td>stp_notif_v2_04_03_26</td><td>B</td><td class='num'>30</td></tr>
+<tr><td>B</td><td>agency_0001</td><td>A</td><td class='num'>6</td></tr>
+<tr><td>B</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>A</td><td class='num'>995</td></tr>
+<tr><td>B</td><td>stp_notif_v2_04_03_26</td><td>A</td><td class='num'>33</td></tr>
+<tr><td>B</td><td>stp_notif_v2_04_03_26</td><td>B</td><td class='num'>33</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>3. Daily Segmentation Coverage</h2>
+            <table><thead><tr><th>Date</th><th>Eligible</th><th>Segmented</th><th>Missing</th><th>Coverage</th></tr></thead>
+            <tbody><tr><td>2026-04-09</td><td class='num'>8,239</td><td class='num'>917</td><td class='num'>7,322</td><td><div class='bar-bg'><div class='bar-fill' style='width:11.1%;background:#ef4444'></div></div><span class='bar-label'>11.1%</span></td></tr>
+<tr><td>2026-04-10</td><td class='num'>2,329</td><td class='num'>228</td><td class='num'>2,101</td><td><div class='bar-bg'><div class='bar-fill' style='width:9.8%;background:#ef4444'></div></div><span class='bar-label'>9.8%</span></td></tr>
+<tr><td>2026-04-11</td><td class='num'>2,333</td><td class='num'>206</td><td class='num'>2,127</td><td><div class='bar-bg'><div class='bar-fill' style='width:8.8%;background:#ef4444'></div></div><span class='bar-label'>8.8%</span></td></tr>
+<tr><td>2026-04-12</td><td class='num'>2,892</td><td class='num'>316</td><td class='num'>2,576</td><td><div class='bar-bg'><div class='bar-fill' style='width:10.9%;background:#ef4444'></div></div><span class='bar-label'>10.9%</span></td></tr>
+<tr><td>2026-04-13</td><td class='num'>2,975</td><td class='num'>312</td><td class='num'>2,663</td><td><div class='bar-bg'><div class='bar-fill' style='width:10.5%;background:#ef4444'></div></div><span class='bar-label'>10.5%</span></td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>4. Distribution Uniformity <span class="badge badge-ok">All OK</span></h2>
+            <p class="muted">alpha = 0.05</p>
+            <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>p-value</th><th>Sig</th></tr></thead>
+            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>Chi-square</td><td>A=986 | B=995</td><td class='num'>0.8398</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=850, test_mean=870</td><td class='num'>0.6818</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square</td><td>A=933 | B=938</td><td class='num'>0.9080</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=826, test_mean=857</td><td class='num'>0.3645</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square</td><td>A=53 | B=57</td><td class='num'>0.7029</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=1265, test_mean=1081</td><td class='num'>0.1870</td><td></td></tr>
+</tbody></table>
+        </div>
+
+<div class="footer">
+    Generated on 2026-04-14 &middot; segmentation_qa.py &middot; Collection Analytics
+</div>
+</body>
+</html>
