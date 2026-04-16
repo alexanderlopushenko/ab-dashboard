@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AB Testing Initiatives Board</title>
+    <style>
+        :root {
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface-hover: #334155;
+            --border: #334155;
+            --text: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --accent: #38bdf8;
+            --planned: #64748b;
+            --not-started: #f97316;
+            --in-progress: #38bdf8;
+            --done: #22c55e;
+            --card-shadow: 0 4px 6px -1px rgba(0,0,0,0.3), 0 2px 4px -2px rgba(0,0,0,0.2);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        .header {
+            padding: 32px 40px 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .header .subtitle {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-top: 6px;
+        }
+
+        .header .meta {
+            display: flex;
+            gap: 24px;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .header .meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .stats-bar {
+            display: flex;
+            gap: 16px;
+            padding: 20px 40px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 18px;
+            background: var(--surface);
+            border-radius: 10px;
+            font-size: 14px;
+        }
+
+        .stat .count {
+            font-size: 22px;
+            font-weight: 700;
+        }
+
+        .stat .label {
+            color: var(--text-secondary);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            padding: 24px 40px 40px;
+            min-height: calc(100vh - 200px);
+        }
+
+        .column {
+            background: var(--surface);
+            border-radius: 14px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .column-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .column-header .title-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .column-header .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .column-header h2 {
+            font-size: 15px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .column-header .badge {
+            background: var(--border);
+            color: var(--text-secondary);
+            font-size: 12px;
+            font-weight: 600;
+            padding: 2px 10px;
+            border-radius: 100px;
+        }
+
+        .card {
+            background: var(--bg);
+            border-radius: 12px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            transition: all 0.2s;
+            cursor: default;
+        }
+
+        .card:hover {
+            border-color: var(--accent);
+            box-shadow: var(--card-shadow);
+            transform: translateY(-1px);
+        }
+
+        .card-id {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .card h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .card-progress {
+            margin-bottom: 12px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 0.3s;
+        }
+
+        .progress-text {
+            font-size: 11px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .card-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-weight: 500;
+        }
+
+        .tag-infra { background: #1e3a5f; color: #60a5fa; }
+        .tag-analytics { background: #1a3a2a; color: #4ade80; }
+        .tag-methodology { background: #3b1f4e; color: #c084fc; }
+        .tag-automation { background: #3b2f1a; color: #fbbf24; }
+
+        .next-steps {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .next-steps h4 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .next-steps ul {
+            list-style: none;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .next-steps li {
+            padding: 3px 0;
+            padding-left: 18px;
+            position: relative;
+        }
+
+        .next-steps li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 9px;
+            width: 8px;
+            height: 8px;
+            border: 1.5px solid var(--text-secondary);
+            border-radius: 2px;
+        }
+
+        .next-steps li.done::before {
+            background: var(--done);
+            border-color: var(--done);
+        }
+
+        .next-steps li.done {
+            color: var(--done);
+            text-decoration: line-through;
+            opacity: 0.6;
+        }
+
+        .confluence-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            padding: 10px 18px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .confluence-link:hover {
+            background: var(--surface-hover);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 1200px) {
+            .board { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .board { grid-template-columns: 1fr; padding: 16px; }
+            .header, .stats-bar { padding-left: 16px; padding-right: 16px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>AB Testing Initiatives Board</h1>
+        <div class="subtitle">Collection Analytics &mdash; Initiative Tracking &amp; Roadmap</div>
+        <div class="meta">
+            <span>Owner: Alexander Lopushenko</span>
+            <span>Updated: April 15, 2026</span>
+            <span><a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2766274812/AB+Testing+Initiatives+Tracker" class="confluence-link" style="margin:0; padding:4px 12px; font-size:12px;">Confluence Details Page</a></span>
+        </div>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat">
+            <div class="stat-dot" style="background: var(--in-progress)"></div>
+            <div>
+                <div class="count">1</div>
+                <div class="label">In Progress</div>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-dot" style="background: var(--not-started)"></div>
+            <div>
+                <div class="count">3</div>
+                <div class="label">Not Started</div>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-dot" style="background: var(--planned)"></div>
+            <div>
+                <div class="count">2</div>
+                <div class="label">Planned</div>
+            </div>
+        </div>
+        <div class="stat">
+            <div class="stat-dot" style="background: var(--done)"></div>
+            <div>
+                <div class="count">0</div>
+                <div class="label">Done</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="board">
+        <!-- PLANNED -->
+        <div class="column">
+            <div class="column-header">
+                <div class="title-group">
+                    <div class="dot" style="background: var(--planned)"></div>
+                    <h2>Planned</h2>
+                </div>
+                <span class="badge">2</span>
+            </div>
+
+            <div class="card">
+                <div class="card-id">INIT-05</div>
+                <h3>CUPED Implementation</h3>
+                <p>Reduce bootstrap CI variance using pre-experiment covariates (prior period cure rate, balances).</p>
+                <div class="card-tags">
+                    <span class="tag tag-methodology">Methodology</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li>Research CUPED for bootstrap</li>
+                        <li>Identify best covariates</li>
+                        <li>Prototype in SQL/Python</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-id">INIT-06</div>
+                <h3>Global Holdout</h3>
+                <p>Permanent control group (~5%) excluded from all experiments to measure cumulative optimization impact.</p>
+                <div class="card-tags">
+                    <span class="tag tag-methodology">Methodology</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li>Define group size &amp; criteria</li>
+                        <li>Design exclusion logic</li>
+                        <li>Get stakeholder approval</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- NOT STARTED -->
+        <div class="column">
+            <div class="column-header">
+                <div class="title-group">
+                    <div class="dot" style="background: var(--not-started)"></div>
+                    <h2>Not Started</h2>
+                </div>
+                <span class="badge">3</span>
+            </div>
+
+            <div class="card">
+                <div class="card-id">INIT-02</div>
+                <h3>Data Quality Checks</h3>
+                <p>Automated DQC checks and alerting for the AB test pipeline. Catch missing/inconsistent data before it impacts results.</p>
+                <div class="card-tags">
+                    <span class="tag tag-infra">Infrastructure</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li>Audit pipeline dependencies</li>
+                        <li>Define DQC rules</li>
+                        <li>Implement dbt tests / SQL checks</li>
+                        <li>Set up Slack alerting</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-id">INIT-03</div>
+                <h3>Auto-configuration for Tests</h3>
+                <p>Auto-sync test configurations from test groups table instead of manual config edits.</p>
+                <div class="card-tags">
+                    <span class="tag tag-automation">Automation</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li>Analyze current config process</li>
+                        <li>Design auto-sync logic</li>
+                        <li>Implement &amp; test</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-id">INIT-04</div>
+                <h3>Analytics Expansion &mdash; Slices</h3>
+                <p>Add segment breakdowns: credit limit, score, gender, region for heterogeneous treatment effect analysis.</p>
+                <div class="card-tags">
+                    <span class="tag tag-analytics">Analytics</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li>Define dimensions &amp; buckets</li>
+                        <li>Extend precomputes models</li>
+                        <li>Update Tableau &amp; calculator</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- IN PROGRESS -->
+        <div class="column">
+            <div class="column-header">
+                <div class="title-group">
+                    <div class="dot" style="background: var(--in-progress)"></div>
+                    <h2>In Progress</h2>
+                </div>
+                <span class="badge">1</span>
+            </div>
+
+            <div class="card">
+                <div class="card-id">INIT-01</div>
+                <h3>Precomputes v2 &mdash; Split-Model</h3>
+                <p>Split monolithic cll_precomputes into 7 parallel domain models. Fixes timeout issue and enables slice expansion.</p>
+                <div class="card-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 50%; background: var(--in-progress)"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Code written, pending validation</span>
+                        <span>50%</span>
+                    </div>
+                </div>
+                <div class="card-tags">
+                    <span class="tag tag-infra">Infrastructure</span>
+                    <span class="tag tag-analytics">Analytics</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li class="done">Write 7 split models</li>
+                        <li class="done">Create macros</li>
+                        <li class="done">Fix CRM bootstrap SE</li>
+                        <li>Run v2 in sandbox</li>
+                        <li>Validate vs production</li>
+                        <li>Switch prod to v2</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- DONE -->
+        <div class="column">
+            <div class="column-header">
+                <div class="title-group">
+                    <div class="dot" style="background: var(--done)"></div>
+                    <h2>Done</h2>
+                </div>
+                <span class="badge">0</span>
+            </div>
+
+            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; color:var(--text-secondary); font-size:14px; opacity:0.5;">
+                <div style="font-size:40px; margin-bottom:12px;">&#127942;</div>
+                <div>Completed initiatives</div>
+                <div>will appear here</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
