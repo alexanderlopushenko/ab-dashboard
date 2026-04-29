@@ -331,7 +331,7 @@
         <div class="stat">
             <div class="stat-dot" style="background: var(--not-started)"></div>
             <div>
-                <div class="count">3</div>
+                <div class="count">4</div>
                 <div class="label">Not Started</div>
             </div>
         </div>
@@ -404,7 +404,7 @@
                     <div class="dot" style="background: var(--not-started)"></div>
                     <h2>Not Started</h2>
                 </div>
-                <span class="badge">3</span>
+                <span class="badge">4</span>
             </div>
 
             <div class="card">
@@ -455,6 +455,25 @@
                         <li>Define dimensions &amp; buckets</li>
                         <li>Extend precomputes models</li>
                         <li>Update Tableau &amp; calculator</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-id">INIT-07</div>
+                <h3>Simulated AB Tests</h3>
+                <p>Inject retrospective / external splits into <code style="font-size:11px;background:#0f172a;padding:1px 4px;border-radius:3px;">cll_precomputes</code> and AB-calculator so they look and behave like real tests.</p>
+                <div class="card-tags">
+                    <span class="tag tag-infra">Infrastructure</span>
+                    <span class="tag tag-methodology">Methodology</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li>Define ingestion interface</li>
+                        <li>Loader for V_TEST_CONFIG &amp; test_groups</li>
+                        <li>Verify cll_precomputes picks up</li>
+                        <li>Validate vs known historical split</li>
                     </ul>
                 </div>
             </div>
