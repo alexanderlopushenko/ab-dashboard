@@ -160,6 +160,35 @@
 </tbody></table>
         </div>
 
+        <div class="card">
+            <h2>5. Call Strategy Distribution <span class="badge badge-ok">Balanced</span></h2>
+            <p class="muted">event_code from dwh_collection_prod.dbt.test_dm_calls_event_cli joined by client_id on the test start date. Chi-square (independence): chi2=10.8845, dof=15, p-value=0.7607 (alpha=0.05) &middot; 21 strategies, 6 rare merged into (other)</p>
+            <div class="kpi-row"><div class="kpi"><span class="kpi-val">95.5%</span><span class="kpi-label">group A coverage<br>32,087/33,584</span></div><div class="kpi"><span class="kpi-val">95.6%</span><span class="kpi-label">group B coverage<br>32,048/33,523</span></div></div>
+            <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>Max &Delta; pp</th></tr></thead>
+            <tbody><tr><td>Customer_3rd_base_MPC</td><td class='num'>24,697</td><td class='num'>12,282</td><td class='num'>38.3%</td><td class='num'>12,415</td><td class='num'>38.7%</td><td class='num'>0.5</td></tr>
+<tr><td>default</td><td class='num'>19,531</td><td class='num'>9,812</td><td class='num'>30.6%</td><td class='num'>9,719</td><td class='num'>30.3%</td><td class='num'>0.3</td></tr>
+<tr><td>default_callbacks</td><td class='num'>8,570</td><td class='num'>4,261</td><td class='num'>13.3%</td><td class='num'>4,309</td><td class='num'>13.4%</td><td class='num'>0.2</td></tr>
+<tr><td>Customer_3rd_base_MPC_callbacks</td><td class='num'>5,261</td><td class='num'>2,645</td><td class='num'>8.2%</td><td class='num'>2,616</td><td class='num'>8.2%</td><td class='num'>0.1</td></tr>
+<tr><td>broken_ptp_cc</td><td class='num'>1,746</td><td class='num'>878</td><td class='num'>2.7%</td><td class='num'>868</td><td class='num'>2.7%</td><td class='num'>0.0</td></tr>
+<tr><td>last_day_PTP_reminder_cc</td><td class='num'>1,540</td><td class='num'>780</td><td class='num'>2.4%</td><td class='num'>760</td><td class='num'>2.4%</td><td class='num'>0.1</td></tr>
+<tr><td>broken_ptp_cc_callbacks</td><td class='num'>887</td><td class='num'>442</td><td class='num'>1.4%</td><td class='num'>445</td><td class='num'>1.4%</td><td class='num'>0.0</td></tr>
+<tr><td>last_day_PTP_reminder_cc_callbacks</td><td class='num'>671</td><td class='num'>342</td><td class='num'>1.1%</td><td class='num'>329</td><td class='num'>1.0%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_cl</td><td class='num'>395</td><td class='num'>198</td><td class='num'>0.6%</td><td class='num'>197</td><td class='num'>0.6%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_cl_callbacks</td><td class='num'>293</td><td class='num'>161</td><td class='num'>0.5%</td><td class='num'>132</td><td class='num'>0.4%</td><td class='num'>0.1</td></tr>
+<tr><td>collection_cl_3rd_base_all</td><td class='num'>114</td><td class='num'>63</td><td class='num'>0.2%</td><td class='num'>51</td><td class='num'>0.2%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_pos_callbacks</td><td class='num'>101</td><td class='num'>52</td><td class='num'>0.2%</td><td class='num'>49</td><td class='num'>0.2%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_pos</td><td class='num'>90</td><td class='num'>45</td><td class='num'>0.1%</td><td class='num'>45</td><td class='num'>0.1%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_cl_default</td><td class='num'>62</td><td class='num'>38</td><td class='num'>0.1%</td><td class='num'>24</td><td class='num'>0.1%</td><td class='num'>0.0</td></tr>
+<tr><td>pos_3rd_base_mpc</td><td class='num'>61</td><td class='num'>34</td><td class='num'>0.1%</td><td class='num'>27</td><td class='num'>0.1%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_all_products_3rd_base_all</td><td class='num'>39</td><td class='num'>15</td><td class='num'>0.0%</td><td class='num'>24</td><td class='num'>0.1%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_cl_default_callbacks</td><td class='num'>24</td><td class='num'>9</td><td class='num'>0.0%</td><td class='num'>15</td><td class='num'>0.0%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_cl_3rd_base_all_callbacks</td><td class='num'>23</td><td class='num'>17</td><td class='num'>0.1%</td><td class='num'>6</td><td class='num'>0.0%</td><td class='num'>0.0</td></tr>
+<tr><td>pos_3rd_base_mpc_callbacks</td><td class='num'>20</td><td class='num'>8</td><td class='num'>0.0%</td><td class='num'>12</td><td class='num'>0.0%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_pos_default</td><td class='num'>6</td><td class='num'>3</td><td class='num'>0.0%</td><td class='num'>3</td><td class='num'>0.0%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_pos_default_callbacks</td><td class='num'>4</td><td class='num'>2</td><td class='num'>0.0%</td><td class='num'>2</td><td class='num'>0.0%</td><td class='num'>0.0</td></tr>
+</tbody></table>
+        </div>
+
 <div class="footer">
     Generated on 2026-06-16 &middot; segmentation_qa.py &middot; Collection Analytics
 </div>
