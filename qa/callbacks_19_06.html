@@ -139,16 +139,16 @@
         </div>
 
         <div class="card">
-            <h2>4. Distribution Uniformity <span class="badge badge-warn">5 significant</span></h2>
-            <p class="muted">alpha = 0.05</p>
+            <h2>4. Distribution Uniformity <span class="badge badge-warn">1 significant</span></h2>
+            <p class="muted">alpha = 0.05 &middot; Design split (baseline): <b>A=32,809 (44.5%) | B=40,992 (55.5%)</b>. CL buckets are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged.</p>
             <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>p-value</th><th>Sig</th></tr></thead>
-            <tbody><tr class='sig-fail'><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>Chi-square</td><td>A=32809 | B=40992</td><td class='num'>0.0000</td><td>*</td></tr>
+            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=32,809 (44.5%) | B=40,992 (55.5%)</td><td class='num'>nan</td><td></td></tr>
 <tr class='sig-fail'><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=467, test_mean=474</td><td class='num'>0.0191</td><td>*</td></tr>
-<tr class='sig-fail'><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square</td><td>A=22975 | B=28424</td><td class='num'>0.0000</td><td>*</td></tr>
+<tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=22,975 (44.7%) | B=28,424 (55.3%)</td><td class='num'>0.2670</td><td></td></tr>
 <tr class=''><td>1: [0-4K)</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=227, test_mean=228</td><td class='num'>0.3499</td><td></td></tr>
-<tr class='sig-fail'><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square</td><td>A=5032 | B=6428</td><td class='num'>0.0000</td><td>*</td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=5,032 (43.9%) | B=6,428 (56.1%)</td><td class='num'>0.2388</td><td></td></tr>
 <tr class=''><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=593, test_mean=600</td><td class='num'>0.2432</td><td></td></tr>
-<tr class='sig-fail'><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square</td><td>A=4802 | B=6140</td><td class='num'>0.0000</td><td>*</td></tr>
+<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=4,802 (43.9%) | B=6,140 (56.1%)</td><td class='num'>0.2301</td><td></td></tr>
 <tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=1480, test_mean=1484</td><td class='num'>0.1215</td><td></td></tr>
 </tbody></table>
         </div>
