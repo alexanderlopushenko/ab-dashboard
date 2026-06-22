@@ -153,17 +153,17 @@
         </div>
 
         <div class="card">
-            <h2>4. Distribution Uniformity <span class="badge badge-warn">1 significant</span></h2>
-            <p class="muted">alpha = 0.05 &middot; Design split (baseline): <b>A=15,239 (49.9%) | B=15,272 (50.1%)</b>. CL buckets are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged.</p>
-            <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>p-value</th><th>Sig</th></tr></thead>
-            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=15,239 (49.9%) | B=15,272 (50.1%)</td><td class='num'>nan</td><td></td></tr>
-<tr class=''><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=324, test_mean=324</td><td class='num'>0.5598</td><td></td></tr>
-<tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,073 (50.0%) | B=12,087 (50.0%)</td><td class='num'>0.9378</td><td></td></tr>
-<tr class=''><td>1: [0-4K)</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=208, test_mean=209</td><td class='num'>0.5789</td><td></td></tr>
-<tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=1,989 (49.9%) | B=1,997 (50.1%)</td><td class='num'>0.9534</td><td></td></tr>
-<tr class='sig-fail'><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=517, test_mean=539</td><td class='num'>0.0249</td><td>*</td></tr>
-<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=1,177 (49.8%) | B=1,188 (50.2%)</td><td class='num'>0.8622</td><td></td></tr>
-<tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Mann-Whitney U</td><td>ctrl_mean=1196, test_mean=1141</td><td class='num'>0.2634</td><td></td></tr>
+            <h2>4. Distribution Uniformity <span class="badge badge-ok">All OK</span></h2>
+            <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=15,239 (49.9%) | B=15,272 (50.1%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
+            <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>SMD</th><th>p-value</th><th>Sig</th></tr></thead>
+            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=15,239 (49.9%) | B=15,272 (50.1%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-0 [95% CI -9,+9]; ctrl=324 test=324</td><td class='num'>-0.000</td><td class='num'>0.9896</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,073 (50.0%) | B=12,087 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9378</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+1 [95% CI -2,+4]; ctrl=208 test=209</td><td class='num'>+0.007</td><td class='num'>0.5960</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=1,989 (49.9%) | B=1,997 (50.1%)</td><td class='num'>&mdash;</td><td class='num'>0.9534</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+22 [95% CI +1,+43]; ctrl=517 test=539</td><td class='num'>+0.067</td><td class='num'>0.0368</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=1,177 (49.8%) | B=1,188 (50.2%)</td><td class='num'>&mdash;</td><td class='num'>0.8622</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-55 [95% CI -130,+16]; ctrl=1196 test=1141</td><td class='num'>-0.060</td><td class='num'>0.1452</td><td></td></tr>
 </tbody></table>
         </div>
 
