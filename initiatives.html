@@ -315,7 +315,7 @@
         <div class="subtitle">Collection Analytics &mdash; Initiative Tracking &amp; Roadmap</div>
         <div class="meta">
             <span>Owner: Alexander Lopushenko</span>
-            <span>Updated: May 8, 2026</span>
+            <span>Updated: May 21, 2026</span>
             <span><a href="https://platacard.atlassian.net/wiki/spaces/MAIN/pages/2766274812/AB+Testing+Initiatives+Tracker" class="confluence-link" style="margin:0; padding:4px 12px; font-size:12px;">Confluence Details Page</a></span>
         </div>
     </div>
@@ -324,14 +324,14 @@
         <div class="stat">
             <div class="stat-dot" style="background: var(--in-progress)"></div>
             <div>
-                <div class="count">0</div>
+                <div class="count">1</div>
                 <div class="label">In Progress</div>
             </div>
         </div>
         <div class="stat">
             <div class="stat-dot" style="background: var(--not-started)"></div>
             <div>
-                <div class="count">3</div>
+                <div class="count">2</div>
                 <div class="label">Not Started</div>
             </div>
         </div>
@@ -404,25 +404,7 @@
                     <div class="dot" style="background: var(--not-started)"></div>
                     <h2>Not Started</h2>
                 </div>
-                <span class="badge">3</span>
-            </div>
-
-            <div class="card">
-                <div class="card-id">INIT-02</div>
-                <h3>Data Quality Checks</h3>
-                <p>Automated DQC checks and alerting for the AB test pipeline. Catch missing/inconsistent data before it impacts results.</p>
-                <div class="card-tags">
-                    <span class="tag tag-infra">Infrastructure</span>
-                </div>
-                <div class="next-steps">
-                    <h4>Next Steps</h4>
-                    <ul>
-                        <li>Audit pipeline dependencies</li>
-                        <li>Define DQC rules</li>
-                        <li>Implement dbt tests / SQL checks</li>
-                        <li>Set up Slack alerting</li>
-                    </ul>
-                </div>
+                <span class="badge">2</span>
             </div>
 
             <div class="card">
@@ -468,13 +450,34 @@
                     <div class="dot" style="background: var(--in-progress)"></div>
                     <h2>In Progress</h2>
                 </div>
-                <span class="badge">0</span>
+                <span class="badge">1</span>
             </div>
 
-            <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; color:var(--text-secondary); font-size:14px; opacity:0.5;">
-                <div style="font-size:40px; margin-bottom:12px;">&#128640;</div>
-                <div>Pick up the next one</div>
-                <div>from "Not Started"</div>
+            <div class="card">
+                <div class="card-id">INIT-02</div>
+                <h3>Data Quality Checks</h3>
+                <p>Monitoring dashboard for pipeline data quality is live. Alerting layer on top of it is still to build.</p>
+                <div class="card-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%; background: var(--in-progress)"></div>
+                    </div>
+                    <div class="progress-text">
+                        <span>Dashboard done, alerts pending</span>
+                        <span>60%</span>
+                    </div>
+                </div>
+                <div class="card-tags">
+                    <span class="tag tag-infra">Infrastructure</span>
+                </div>
+                <div class="next-steps">
+                    <h4>Next Steps</h4>
+                    <ul>
+                        <li class="done">Build DQC monitoring dashboard</li>
+                        <li>Define alerting thresholds</li>
+                        <li>Implement Slack alerts</li>
+                        <li>Document alerting workflow</li>
+                    </ul>
+                </div>
             </div>
         </div>
 
