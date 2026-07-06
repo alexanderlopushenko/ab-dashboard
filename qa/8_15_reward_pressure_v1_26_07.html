@@ -168,13 +168,13 @@
             <p class="muted">event_code from dwh_collection_prod.dbt.test_dm_calls_event_cli joined by client_id on the test start date. Chi-square (independence): chi2=6.6153, dof=5, p-value=0.2509 (alpha=0.05) &middot; 6 strategies, 0 rare merged into (other)</p>
             <div class="kpi-row"><div class="kpi"><span class="kpi-val">97.9%</span><span class="kpi-label">group A coverage<br>2,749/2,807</span></div><div class="kpi"><span class="kpi-val">97.6%</span><span class="kpi-label">group B coverage<br>2,741/2,808</span></div></div>
             
-            <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>Max &Delta; pp</th></tr></thead><tbody><tr><td>Customer_3rd_base_MPC_callbacks</td><td class='num'>2,783</td><td class='num'>1,433</td><td class='num'>52.1%</td><td class='num'>1,350</td><td class='num'>49.3%</td><td class='num'>2.9</td></tr>
-<tr><td>Customer_3rd_base_MPC</td><td class='num'>2,294</td><td class='num'>1,123</td><td class='num'>40.9%</td><td class='num'>1,171</td><td class='num'>42.7%</td><td class='num'>1.9</td></tr>
-<tr><td>broken_ptp_cc_callbacks</td><td class='num'>115</td><td class='num'>58</td><td class='num'>2.1%</td><td class='num'>57</td><td class='num'>2.1%</td><td class='num'>0.0</td></tr>
-<tr><td>last_day_PTP_reminder_cc</td><td class='num'>104</td><td class='num'>50</td><td class='num'>1.8%</td><td class='num'>54</td><td class='num'>2.0%</td><td class='num'>0.2</td></tr>
-<tr><td>last_day_PTP_reminder_cc_callbacks</td><td class='num'>104</td><td class='num'>46</td><td class='num'>1.7%</td><td class='num'>58</td><td class='num'>2.1%</td><td class='num'>0.4</td></tr>
-<tr><td>broken_ptp_cc</td><td class='num'>90</td><td class='num'>39</td><td class='num'>1.4%</td><td class='num'>51</td><td class='num'>1.9%</td><td class='num'>0.4</td></tr>
-</tbody></table>
+            <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>&Delta;pp (B&minus;A) [95% CI]</th></tr></thead><tbody><tr class='sig-fail'><td>Customer_3rd_base_MPC_callbacks</td><td class='num'>2,783</td><td class='num'>1,433</td><td class='num'>52.1%</td><td class='num'>1,350</td><td class='num'>49.3%</td><td class='num'>-2.9 [-5.5, -0.2] <span class="badge badge-warn">sig</span></td></tr>
+<tr><td>Customer_3rd_base_MPC</td><td class='num'>2,294</td><td class='num'>1,123</td><td class='num'>40.9%</td><td class='num'>1,171</td><td class='num'>42.7%</td><td class='num'>+1.9 [-0.7, +4.5]</td></tr>
+<tr><td>broken_ptp_cc_callbacks</td><td class='num'>115</td><td class='num'>58</td><td class='num'>2.1%</td><td class='num'>57</td><td class='num'>2.1%</td><td class='num'>-0.0 [-0.8, +0.7]</td></tr>
+<tr><td>last_day_PTP_reminder_cc</td><td class='num'>104</td><td class='num'>50</td><td class='num'>1.8%</td><td class='num'>54</td><td class='num'>2.0%</td><td class='num'>+0.2 [-0.6, +0.9]</td></tr>
+<tr><td>last_day_PTP_reminder_cc_callbacks</td><td class='num'>104</td><td class='num'>46</td><td class='num'>1.7%</td><td class='num'>58</td><td class='num'>2.1%</td><td class='num'>+0.4 [-0.3, +1.2]</td></tr>
+<tr><td>broken_ptp_cc</td><td class='num'>90</td><td class='num'>39</td><td class='num'>1.4%</td><td class='num'>51</td><td class='num'>1.9%</td><td class='num'>+0.4 [-0.2, +1.1]</td></tr>
+</tbody></table><p class='muted' style='margin-top:0.4rem'>&Delta;pp = share gap (group B &minus; group A) with a 95% CI on the difference of proportions. A CI that excludes 0 (flagged <b>sig</b>) means the skew is significant for that strategy; a CI spanning 0 means the gap is within sampling noise.</p>
             
         </div>
 
