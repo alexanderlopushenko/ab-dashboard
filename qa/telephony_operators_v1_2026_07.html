@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segmentation QA — telephony_operators_v1_2026_07</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --accent: #3b82f6;
+        --green: #22c55e;
+        --red: #ef4444;
+        --yellow: #eab308;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg); color: var(--text); line-height: 1.5; padding: 2rem;
+    }
+    .header {
+        max-width: 1100px; margin: 0 auto 2rem; text-align: center;
+    }
+    .header h1 {
+        font-size: 1.75rem; font-weight: 700;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .header .sub { color: var(--text-muted); font-size: 0.9rem; }
+    .card {
+        max-width: 1100px; margin: 1.25rem auto;
+        background: var(--card-bg); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1.25rem 1.5rem; overflow-x: auto;
+    }
+    .card h2 {
+        font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .kpi-row { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .kpi {
+        background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+        padding: 0.75rem 1.25rem; text-align: center; min-width: 120px;
+    }
+    .kpi-val { display: block; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .kpi-label { display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead th {
+        text-align: left; padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid var(--border); color: var(--text-muted);
+        font-weight: 500; font-size: 0.8rem; white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid rgba(51,65,85,0.5); }
+    tbody tr:last-child { border-bottom: none; }
+    td { padding: 0.4rem 0.75rem; white-space: nowrap; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .muted { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .badge {
+        display: inline-block; padding: 2px 8px; border-radius: 4px;
+        font-size: 0.75rem; font-weight: 600;
+    }
+    .badge-ok { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-warn { background: rgba(234,179,8,0.15); color: #facc15; }
+    .sig-fail { background: rgba(239,68,68,0.07); }
+    .bar-bg {
+        display: inline-block; width: 120px; height: 10px;
+        background: var(--border); border-radius: 5px; vertical-align: middle;
+    }
+    .bar-fill { height: 100%; border-radius: 5px; }
+    .bar-label { font-size: 0.8rem; margin-left: 0.4rem; color: var(--text-muted); }
+    .footer {
+        max-width: 1100px; margin: 2rem auto 0; text-align: center;
+        color: var(--text-muted); font-size: 0.75rem;
+    }
+    @media (max-width: 768px) {
+        body { padding: 1rem; }
+        .kpi-row { gap: 0.75rem; }
+        .kpi { min-width: 90px; padding: 0.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Segmentation QA</h1>
+    <p class="sub">telephony_operators_v1_2026_07 &mdash; 2026-07-17</p>
+</div>
+
+
+    <div class="card">
+        <h2>Detected Filters</h2>
+        <p class="muted">Auto-detected from test population, applied to eligible population query</p>
+        <div class="kpi-row">
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 15, 16, 18, 21, 22, 23, 24, 25, 28, 29, 30</span><span class="kpi-label">dpd_start_day</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">P_CURRENT</span><span class="kpi-label">account_type</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">>= 1000</span><span class="kpi-label">credit_limit</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">ff_flg</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">death_flg</span></div>
+        </div>
+    </div>
+
+        <div class="card">
+            <h2>1. Test Overview</h2>
+            <div class="kpi-row">
+                <div class="kpi"><span class="kpi-val">2</span><span class="kpi-label">Groups</span></div>
+                <div class="kpi"><span class="kpi-val">2026-07-17</span><span class="kpi-label">Start</span></div>
+                <div class="kpi"><span class="kpi-val">2026-07-17</span><span class="kpi-label">End</span></div>
+                <div class="kpi"><span class="kpi-val">79,401</span><span class="kpi-label">Total Accounts</span></div>
+                <div class="kpi"><span class="kpi-val">50.0%</span><span class="kpi-label">group A share<br>39,699</span></div><div class="kpi"><span class="kpi-val">50.0%</span><span class="kpi-label">group B share<br>39,702</span></div>
+            </div>
+            <p class="muted">Design split (actual): <b>A 50.0% &middot; B 50.0%</b> &mdash; compare with the intended split. This split is the baseline for the uniformity check (§4).</p>
+            <table><thead><tr><th>Date</th><th>Group</th><th>Accounts</th><th>Share</th></tr></thead>
+            <tbody><tr><td>2026-07-17</td><td>A</td><td class='num'>39,699</td><td class='num'>50.0%</td></tr>
+<tr><td>2026-07-17</td><td>B</td><td class='num'>39,702</td><td class='num'>50.0%</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>2. Test Overlaps <span class="badge badge-warn">24 overlap(s)</span></h2>
+            <table><thead><tr><th>Our Group</th><th>Overlapped Test</th><th>Their Group</th><th>Shared Accounts</th></tr></thead>
+            <tbody><tr><td>A</td><td>8_15_reward_pressure_v1_26_07</td><td>A</td><td class='num'>5,781</td></tr>
+<tr><td>A</td><td>8_15_reward_pressure_v1_26_07</td><td>B</td><td class='num'>5,724</td></tr>
+<tr><td>A</td><td>agency_0001</td><td>A</td><td class='num'>39,699</td></tr>
+<tr><td>A</td><td>mab_wa_cll_2026_07_v2</td><td>A</td><td class='num'>2,870</td></tr>
+<tr><td>A</td><td>mab_wa_cll_2026_07_v2</td><td>B</td><td class='num'>2,919</td></tr>
+<tr><td>A</td><td>mab_wa_cll_2026_07_v2</td><td>C</td><td class='num'>23,482</td></tr>
+<tr><td>A</td><td>meta_adv_v2_26_05</td><td>A</td><td class='num'>1,555</td></tr>
+<tr><td>A</td><td>meta_adv_v2_26_05</td><td>B</td><td class='num'>1,555</td></tr>
+<tr><td>A</td><td>my_number_v1_26_07</td><td>A</td><td class='num'>20,033</td></tr>
+<tr><td>A</td><td>my_number_v1_26_07</td><td>B</td><td class='num'>19,666</td></tr>
+<tr><td>A</td><td>stp_notif_v2_04_03_26</td><td>A</td><td class='num'>269</td></tr>
+<tr><td>A</td><td>stp_notif_v2_04_03_26</td><td>B</td><td class='num'>262</td></tr>
+<tr><td>B</td><td>8_15_reward_pressure_v1_26_07</td><td>A</td><td class='num'>5,693</td></tr>
+<tr><td>B</td><td>8_15_reward_pressure_v1_26_07</td><td>B</td><td class='num'>5,812</td></tr>
+<tr><td>B</td><td>agency_0001</td><td>A</td><td class='num'>39,702</td></tr>
+<tr><td>B</td><td>mab_wa_cll_2026_07_v2</td><td>A</td><td class='num'>2,834</td></tr>
+<tr><td>B</td><td>mab_wa_cll_2026_07_v2</td><td>B</td><td class='num'>2,995</td></tr>
+<tr><td>B</td><td>mab_wa_cll_2026_07_v2</td><td>C</td><td class='num'>23,459</td></tr>
+<tr><td>B</td><td>meta_adv_v2_26_05</td><td>A</td><td class='num'>1,491</td></tr>
+<tr><td>B</td><td>meta_adv_v2_26_05</td><td>B</td><td class='num'>1,474</td></tr>
+<tr><td>B</td><td>my_number_v1_26_07</td><td>A</td><td class='num'>19,666</td></tr>
+<tr><td>B</td><td>my_number_v1_26_07</td><td>B</td><td class='num'>20,036</td></tr>
+<tr><td>B</td><td>stp_notif_v2_04_03_26</td><td>A</td><td class='num'>241</td></tr>
+<tr><td>B</td><td>stp_notif_v2_04_03_26</td><td>B</td><td class='num'>270</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>3. Daily Segmentation Coverage</h2>
+            <table><thead><tr><th>Date</th><th>Eligible</th><th>Segmented</th><th>Missing</th><th>Coverage</th></tr></thead>
+            <tbody><tr><td>2026-07-17</td><td class='num'>90,499</td><td class='num'>79,401</td><td class='num'>11,098</td><td><div class='bar-bg'><div class='bar-fill' style='width:87.7%;background:#eab308'></div></div><span class='bar-label'>87.7%</span></td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>4. Distribution Uniformity <span class="badge badge-ok">All OK</span></h2>
+            <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=39,699 (50.0%) | B=39,702 (50.0%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
+            <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>SMD</th><th>p-value</th><th>Sig</th></tr></thead>
+            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=39,699 (50.0%) | B=39,702 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-6 [95% CI -14,+3]; ctrl=468 test=462</td><td class='num'>-0.009</td><td class='num'>0.1688</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=27,741 (49.8%) | B=27,930 (50.2%)</td><td class='num'>&mdash;</td><td class='num'>0.4283</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-1 [95% CI -3,+1]; ctrl=230 test=229</td><td class='num'>-0.011</td><td class='num'>0.2000</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=6,276 (50.3%) | B=6,190 (49.7%)</td><td class='num'>&mdash;</td><td class='num'>0.4386</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+2 [95% CI -9,+13]; ctrl=599 test=601</td><td class='num'>+0.006</td><td class='num'>0.7416</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=5,682 (50.4%) | B=5,582 (49.6%)</td><td class='num'>&mdash;</td><td class='num'>0.3440</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-9 [95% CI -48,+31]; ctrl=1488 test=1480</td><td class='num'>-0.008</td><td class='num'>0.6744</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=18,264 (50.0%) | B=18,265 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9984</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-13 [95% CI -25,-1]; ctrl=457 test=445</td><td class='num'>-0.021</td><td class='num'>0.0380</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=11,505 (50.0%) | B=11,506 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9993</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+8 [95% CI -9,+24]; ctrl=472 test=480</td><td class='num'>+0.012</td><td class='num'>0.3484</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=9,930 (50.0%) | B=9,931 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9986</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-9 [95% CI -27,+9]; ctrl=484 test=475</td><td class='num'>-0.014</td><td class='num'>0.3184</td><td></td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>5. Call Strategy Distribution <span class="badge badge-warn">Mix differs</span></h2>
+            <p class="muted">event_code from dwh_collection_prod.dbt.test_dm_calls_event_cli joined by client_id on the test start date. Chi-square (independence): chi2=76687.0, dof=8, p-value=0.0000 (alpha=0.05) &middot; 9 strategies, 1 rare merged into (other)</p>
+            <div class="kpi-row"><div class="kpi"><span class="kpi-val">96.5%</span><span class="kpi-label">group A coverage<br>38,315/39,699</span></div><div class="kpi"><span class="kpi-val">96.7%</span><span class="kpi-label">group B coverage<br>38,372/39,702</span></div></div>
+            
+            <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>&Delta;pp (B&minus;A) [95% CI]</th></tr></thead><tbody><tr class='sig-fail'><td>Customer_3rd_base_MPC_operators_test</td><td class='num'>19,661</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>19,661</td><td class='num'>51.2%</td><td class='num'>+51.2 [+50.7, +51.7] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>Customer_3rd_base_MPC</td><td class='num'>19,646</td><td class='num'>19,646</td><td class='num'>51.3%</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>-51.3 [-51.8, -50.8] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>default</td><td class='num'>14,788</td><td class='num'>14,788</td><td class='num'>38.6%</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>-38.6 [-39.1, -38.1] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>default_operators_test</td><td class='num'>14,704</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>14,704</td><td class='num'>38.3%</td><td class='num'>+38.3 [+37.8, +38.8] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>last_day_PTP_reminder_cc_operators_test</td><td class='num'>2,286</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>2,286</td><td class='num'>6.0%</td><td class='num'>+6.0 [+5.7, +6.2] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>last_day_PTP_reminder_cc</td><td class='num'>2,228</td><td class='num'>2,228</td><td class='num'>5.8%</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>-5.8 [-6.0, -5.6] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>broken_ptp_cc_operators_test</td><td class='num'>1,721</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>1,721</td><td class='num'>4.5%</td><td class='num'>+4.5 [+4.3, +4.7] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>broken_ptp_cc</td><td class='num'>1,652</td><td class='num'>1,652</td><td class='num'>4.3%</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>-4.3 [-4.5, -4.1] <span class="badge badge-warn">sig</span></td></tr>
+<tr><td>pre_collection_cl</td><td class='num'>1</td><td class='num'>1</td><td class='num'>0.0%</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>-0.0 [-0.0, +0.0]</td></tr>
+</tbody></table><p class='muted' style='margin-top:0.4rem'>&Delta;pp = share gap (group B &minus; group A) with a 95% CI on the difference of proportions. A CI that excludes 0 (flagged <b>sig</b>) means the skew is significant for that strategy; a CI spanning 0 means the gap is within sampling noise.</p>
+            
+        </div>
+
+<div class="footer">
+    Generated on 2026-07-17 &middot; segmentation_qa.py &middot; Collection Analytics
+</div>
+</body>
+</html>
