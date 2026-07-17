@@ -117,7 +117,7 @@
         </div>
 
         <div class="card">
-            <h2>2. Test Overlaps <span class="badge badge-warn">42 overlap(s)</span></h2>
+            <h2>2. Test Overlaps <span class="badge badge-warn">38 overlap(s)</span></h2>
             <table><thead><tr><th>Our Group</th><th>Overlapped Test</th><th>Their Group</th><th>Shared Accounts</th></tr></thead>
             <tbody><tr><td>A</td><td>8_15_reward_pressure_v1_26_07</td><td>A</td><td class='num'>5,695</td></tr>
 <tr><td>A</td><td>8_15_reward_pressure_v1_26_07</td><td>B</td><td class='num'>5,810</td></tr>
@@ -125,8 +125,6 @@
 <tr><td>A</td><td>Reduce_calls_non_contactables_dpd60_v1_2026_04</td><td>B</td><td class='num'>3,765</td></tr>
 <tr><td>A</td><td>agency_0001</td><td>A</td><td class='num'>41,621</td></tr>
 <tr><td>A</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>A</td><td class='num'>29,357</td></tr>
-<tr><td>A</td><td>callbacks_19_06</td><td>A</td><td class='num'>4,427</td></tr>
-<tr><td>A</td><td>callbacks_19_06</td><td>B</td><td class='num'>5,516</td></tr>
 <tr><td>A</td><td>kobra_31dpd_field_visits_v4_2026_06</td><td>A</td><td class='num'>545</td></tr>
 <tr><td>A</td><td>kobra_31dpd_field_visits_v4_2026_06</td><td>K</td><td class='num'>514</td></tr>
 <tr><td>A</td><td>kobra_31dpd_fv_v4_2026_07</td><td>A</td><td class='num'>115</td></tr>
@@ -146,8 +144,6 @@
 <tr><td>B</td><td>Reduce_calls_non_contactables_dpd60_v1_2026_04</td><td>B</td><td class='num'>3,854</td></tr>
 <tr><td>B</td><td>agency_0001</td><td>A</td><td class='num'>41,654</td></tr>
 <tr><td>B</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>A</td><td class='num'>29,328</td></tr>
-<tr><td>B</td><td>callbacks_19_06</td><td>A</td><td class='num'>4,486</td></tr>
-<tr><td>B</td><td>callbacks_19_06</td><td>B</td><td class='num'>5,462</td></tr>
 <tr><td>B</td><td>kobra_31dpd_field_visits_v4_2026_06</td><td>A</td><td class='num'>503</td></tr>
 <tr><td>B</td><td>kobra_31dpd_field_visits_v4_2026_06</td><td>K</td><td class='num'>541</td></tr>
 <tr><td>B</td><td>kobra_31dpd_fv_v4_2026_07</td><td>A</td><td class='num'>114</td></tr>
@@ -176,13 +172,23 @@
             <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=70,978 (50.0%) | B=70,982 (50.0%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
             <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>SMD</th><th>p-value</th><th>Sig</th></tr></thead>
             <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=70,978 (50.0%) | B=70,982 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
-<tr class=''><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-8 [95% CI -23,+6]; ctrl=870 test=862</td><td class='num'>-0.006</td><td class='num'>0.2488</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-8 [95% CI -23,+6]; ctrl=870 test=862</td><td class='num'>-0.006</td><td class='num'>0.2456</td><td></td></tr>
 <tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=49,144 (49.9%) | B=49,432 (50.1%)</td><td class='num'>&mdash;</td><td class='num'>0.3636</td><td></td></tr>
-<tr class=''><td>1: [0-4K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+0 [95% CI -3,+4]; ctrl=398 test=398</td><td class='num'>+0.002</td><td class='num'>0.7724</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+0 [95% CI -3,+4]; ctrl=398 test=398</td><td class='num'>+0.002</td><td class='num'>0.8052</td><td></td></tr>
 <tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=11,200 (50.6%) | B=10,955 (49.4%)</td><td class='num'>&mdash;</td><td class='num'>0.0989</td><td></td></tr>
-<tr class=''><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+6 [95% CI -15,+27]; ctrl=1075 test=1081</td><td class='num'>+0.007</td><td class='num'>0.5924</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+6 [95% CI -15,+26]; ctrl=1075 test=1081</td><td class='num'>+0.007</td><td class='num'>0.5972</td><td></td></tr>
 <tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=10,634 (50.1%) | B=10,595 (49.9%)</td><td class='num'>&mdash;</td><td class='num'>0.7858</td><td></td></tr>
-<tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-39 [95% CI -107,+32]; ctrl=2836 test=2797</td><td class='num'>-0.015</td><td class='num'>0.2880</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-39 [95% CI -109,+30]; ctrl=2836 test=2797</td><td class='num'>-0.015</td><td class='num'>0.2756</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=18,264 (50.0%) | B=18,265 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9999</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+1 [95% CI -11,+13]; ctrl=451 test=451</td><td class='num'>+0.002</td><td class='num'>0.8948</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=11,505 (50.0%) | B=11,506 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9982</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-0 [95% CI -17,+15]; ctrl=476 test=476</td><td class='num'>-0.000</td><td class='num'>0.9748</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=9,930 (50.0%) | B=9,931 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9975</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+4 [95% CI -15,+21]; ctrl=478 test=481</td><td class='num'>+0.006</td><td class='num'>0.6924</td><td></td></tr>
+<tr class=''><td>DPD 31-60</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=18,348 (50.0%) | B=18,349 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9999</td><td></td></tr>
+<tr class=''><td>DPD 31-60</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-11 [95% CI -41,+19]; ctrl=1100 test=1089</td><td class='num'>-0.008</td><td class='num'>0.4564</td><td></td></tr>
+<tr class=''><td>DPD 61-90</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,931 (50.0%) | B=12,931 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.9964</td><td></td></tr>
+<tr class=''><td>DPD 61-90</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-34 [95% CI -90,+20]; ctrl=1788 test=1754</td><td class='num'>-0.015</td><td class='num'>0.2252</td><td></td></tr>
 </tbody></table>
         </div>
 
