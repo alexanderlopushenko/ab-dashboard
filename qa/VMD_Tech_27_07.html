@@ -196,11 +196,17 @@
         </div>
 
         <div class="card">
-            <h2>5. Call Strategy Distribution <span class="badge badge-warn">Mix differs</span></h2>
-            <p class="muted">event_code from dwh_collection_prod.dbt.test_dm_calls_event_cli joined by client_id on the test start date. Chi-square (independence): chi2=46845.4741, dof=5, p-value=0.0000 (alpha=0.05) &middot; 7 strategies, 2 rare merged into (other)</p>
-            <div class="kpi-row"><div class="kpi"><span class="kpi-val">97.1%</span><span class="kpi-label">group A coverage<br>33,024/33,993</span></div><div class="kpi"><span class="kpi-val">97.0%</span><span class="kpi-label">group B coverage<br>32,988/33,993</span></div></div>
+            <h2>5. Call Strategy Distribution</h2>
+            <p class="muted">event_code from dwh_collection_prod.dbt.test_dm_calls_event_cli joined by client_id. Two aggregations:
+            strategy on each client's segmentation date, and on the last available day
+            (strategies are re-assigned daily, so the two can differ).</p>
             
-            <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>&Delta;pp (B&minus;A) [95% CI]</th></tr></thead><tbody><tr class='sig-fail'><td>collection_all_products_3rd_base_all</td><td class='num'>35,918</td><td class='num'>31,377</td><td class='num'>95.0%</td><td class='num'>4,541</td><td class='num'>13.8%</td><td class='num'>-81.2 [-81.7, -80.8] <span class="badge badge-warn">sig</span></td></tr>
+            <div class="strat-block">
+                <h3 style="font-size:1rem;margin:1.2rem 0 0.3rem">On segmentation date <span class="badge badge-warn">Mix differs</span></h3>
+                <p class="muted">Chi-square (independence): chi2=46845.4741, dof=5, p-value=0.0000 (alpha=0.05) &middot; 7 strategies, 2 rare merged into (other)</p>
+                <div class="kpi-row"><div class="kpi"><span class="kpi-val">97.1%</span><span class="kpi-label">group A coverage<br>33,024/33,993</span></div><div class="kpi"><span class="kpi-val">97.0%</span><span class="kpi-label">group B coverage<br>32,988/33,993</span></div></div>
+                
+                <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>&Delta;pp (B&minus;A) [95% CI]</th></tr></thead><tbody><tr class='sig-fail'><td>collection_all_products_3rd_base_all</td><td class='num'>35,918</td><td class='num'>31,377</td><td class='num'>95.0%</td><td class='num'>4,541</td><td class='num'>13.8%</td><td class='num'>-81.2 [-81.7, -80.8] <span class="badge badge-warn">sig</span></td></tr>
 <tr class='sig-fail'><td>collection_all_products_3rd_base_vmd_tech_test</td><td class='num'>26,795</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>26,795</td><td class='num'>81.2%</td><td class='num'>+81.2 [+80.8, +81.6] <span class="badge badge-warn">sig</span></td></tr>
 <tr><td>Customer_3rd_base_MPC</td><td class='num'>2,369</td><td class='num'>1,181</td><td class='num'>3.6%</td><td class='num'>1,188</td><td class='num'>3.6%</td><td class='num'>+0.0 [-0.3, +0.3]</td></tr>
 <tr><td>broken_ptp_cc</td><td class='num'>528</td><td class='num'>262</td><td class='num'>0.8%</td><td class='num'>266</td><td class='num'>0.8%</td><td class='num'>+0.0 [-0.1, +0.1]</td></tr>
@@ -208,7 +214,23 @@
 <tr><td>Customer_3rd_base_MPC_operators_test</td><td class='num'>32</td><td class='num'>16</td><td class='num'>0.0%</td><td class='num'>16</td><td class='num'>0.0%</td><td class='num'>+0.0 [-0.0, +0.0]</td></tr>
 <tr><td>last_day_PTP_reminder_cc_operators_test</td><td class='num'>2</td><td class='num'>1</td><td class='num'>0.0%</td><td class='num'>1</td><td class='num'>0.0%</td><td class='num'>+0.0 [-0.0, +0.0]</td></tr>
 </tbody></table><p class='muted' style='margin-top:0.4rem'>&Delta;pp = share gap (group B &minus; group A) with a 95% CI on the difference of proportions. A CI that excludes 0 (flagged <b>sig</b>) means the skew is significant for that strategy; a CI spanning 0 means the gap is within sampling noise.</p>
-            
+                
+            </div>
+            <div class="strat-block">
+                <h3 style="font-size:1rem;margin:1.2rem 0 0.3rem">On last available day (2026-07-29) <span class="badge badge-warn">Mix differs</span></h3>
+                <p class="muted">Chi-square (independence): chi2=60769.0326, dof=4, p-value=0.0000 (alpha=0.05) &middot; 7 strategies, 3 rare merged into (other)</p>
+                <div class="kpi-row"><div class="kpi"><span class="kpi-val">91.3%</span><span class="kpi-label">group A coverage<br>31,028/33,993</span></div><div class="kpi"><span class="kpi-val">91.2%</span><span class="kpi-label">group B coverage<br>31,000/33,993</span></div></div>
+                
+                <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>&Delta;pp (B&minus;A) [95% CI]</th></tr></thead><tbody><tr class='sig-fail'><td>collection_all_products_3rd_base_all</td><td class='num'>30,737</td><td class='num'>30,641</td><td class='num'>98.8%</td><td class='num'>96</td><td class='num'>0.3%</td><td class='num'>-98.4 [-98.6, -98.3] <span class="badge badge-warn">sig</span></td></tr>
+<tr class='sig-fail'><td>collection_all_products_3rd_base_vmd_tech_test</td><td class='num'>30,614</td><td class='num'>50</td><td class='num'>0.2%</td><td class='num'>30,564</td><td class='num'>98.6%</td><td class='num'>+98.4 [+98.3, +98.6] <span class="badge badge-warn">sig</span></td></tr>
+<tr><td>broken_ptp_cc</td><td class='num'>460</td><td class='num'>233</td><td class='num'>0.8%</td><td class='num'>227</td><td class='num'>0.7%</td><td class='num'>-0.0 [-0.2, +0.1]</td></tr>
+<tr><td>last_day_PTP_reminder_cc</td><td class='num'>189</td><td class='num'>90</td><td class='num'>0.3%</td><td class='num'>99</td><td class='num'>0.3%</td><td class='num'>+0.0 [-0.1, +0.1]</td></tr>
+<tr><td>default</td><td class='num'>26</td><td class='num'>13</td><td class='num'>0.0%</td><td class='num'>13</td><td class='num'>0.0%</td><td class='num'>+0.0 [-0.0, +0.0]</td></tr>
+<tr><td>default_holdout</td><td class='num'>1</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>1</td><td class='num'>0.0%</td><td class='num'>+0.0 [-0.0, +0.0]</td></tr>
+<tr><td>last_day_PTP_reminder_cc_holdout</td><td class='num'>1</td><td class='num'>1</td><td class='num'>0.0%</td><td class='num'>0</td><td class='num'>0.0%</td><td class='num'>-0.0 [-0.0, +0.0]</td></tr>
+</tbody></table><p class='muted' style='margin-top:0.4rem'>&Delta;pp = share gap (group B &minus; group A) with a 95% CI on the difference of proportions. A CI that excludes 0 (flagged <b>sig</b>) means the skew is significant for that strategy; a CI spanning 0 means the gap is within sampling noise.</p>
+                
+            </div>
         </div>
 
 <div class="footer">
