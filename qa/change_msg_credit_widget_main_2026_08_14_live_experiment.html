@@ -153,15 +153,15 @@
             <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=16,936 (49.9%) | B=16,995 (50.1%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
             <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>SMD</th><th>p-value</th><th>Sig</th></tr></thead>
             <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=16,936 (49.9%) | B=16,995 (50.1%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
-<tr class=''><td>TOTAL</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+0 [95% CI +0,+0]; ctrl=0 test=0</td><td class='num'>+0.000</td><td class='num'>1.0000</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-77 [95% CI -207,+54]; ctrl=3426 test=3349</td><td class='num'>-0.013</td><td class='num'>0.2516</td><td></td></tr>
 <tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,705 (49.6%) | B=12,902 (50.4%)</td><td class='num'>&mdash;</td><td class='num'>0.3407</td><td></td></tr>
-<tr class=''><td>1: [0-4K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+0 [95% CI +0,+0]; ctrl=0 test=0</td><td class='num'>+0.000</td><td class='num'>1.0000</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-2 [95% CI -24,+18]; ctrl=1191 test=1188</td><td class='num'>-0.003</td><td class='num'>0.8284</td><td></td></tr>
 <tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=2,185 (50.8%) | B=2,120 (49.2%)</td><td class='num'>&mdash;</td><td class='num'>0.2693</td><td></td></tr>
-<tr class=''><td>2: [4K-10K)</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+0 [95% CI +0,+0]; ctrl=0 test=0</td><td class='num'>+0.000</td><td class='num'>1.0000</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+189 [95% CI +47,+333]; ctrl=5178 test=5368</td><td class='num'>+0.079</td><td class='num'>0.0080</td><td></td></tr>
 <tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=2,046 (50.9%) | B=1,973 (49.1%)</td><td class='num'>&mdash;</td><td class='num'>0.2070</td><td></td></tr>
-<tr class=''><td>3: [10K+]</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+0 [95% CI +0,+0]; ctrl=0 test=0</td><td class='num'>+0.000</td><td class='num'>1.0000</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-129 [95% CI -834,+590]; ctrl=15436 test=15307</td><td class='num'>-0.011</td><td class='num'>0.7072</td><td></td></tr>
 <tr class=''><td>DPD <=0</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=16,936 (49.9%) | B=16,995 (50.1%)</td><td class='num'>&mdash;</td><td class='num'>1.0000</td><td></td></tr>
-<tr class=''><td>DPD <=0</td><td>principal_balance</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+0 [95% CI +0,+0]; ctrl=0 test=0</td><td class='num'>+0.000</td><td class='num'>1.0000</td><td></td></tr>
+<tr class=''><td>DPD <=0</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-77 [95% CI -207,+54]; ctrl=3426 test=3349</td><td class='num'>-0.013</td><td class='num'>0.2516</td><td></td></tr>
 </tbody></table>
         </div>
 
