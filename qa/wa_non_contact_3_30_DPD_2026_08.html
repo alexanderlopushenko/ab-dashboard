@@ -110,11 +110,13 @@
                 <div class="kpi"><span class="kpi-val">2</span><span class="kpi-label">Groups</span></div>
                 <div class="kpi"><span class="kpi-val">2026-08-13</span><span class="kpi-label">Start</span></div>
                 <div class="kpi"><span class="kpi-val">2026-08-17</span><span class="kpi-label">End</span></div>
-                <div class="kpi"><span class="kpi-val">22,249</span><span class="kpi-label">Total Accounts</span></div>
-                <div class="kpi"><span class="kpi-val">49.6%</span><span class="kpi-label">group A share<br>11,025</span></div><div class="kpi"><span class="kpi-val">50.4%</span><span class="kpi-label">group B share<br>11,224</span></div>
+                <div class="kpi"><span class="kpi-val">7,937</span><span class="kpi-label">Unique accounts</span></div>
+                <div class="kpi"><span class="kpi-val">22,249</span><span class="kpi-label">Account-days<br>2.80 per account</span></div>
+                <div class="kpi"><span class="kpi-val">49.6%</span><span class="kpi-label">group A share<br>3,937</span></div><div class="kpi"><span class="kpi-val">50.4%</span><span class="kpi-label">group B share<br>4,000</span></div>
             </div>
             <p class="muted">Design split (actual): <b>A 49.6% &middot; B 50.4%</b> &mdash; compare with the intended split. This split is the baseline for the uniformity check (§4).</p>
-            <table><thead><tr><th>Date</th><th>Group</th><th>Accounts</th><th>Share</th></tr></thead>
+            <p class="muted">Clients re-enter the test on every qualifying day, so the groups table holds <b>22,249</b> account-days for <b>7,937</b> accounts. The split above and every test in §4 count each account once, at first entry &mdash; counting account-days would treat one client as 2.8 independent observations and understate the p-values. The table below is per intake day, so its shares are of account-days.</p>
+            <table><thead><tr><th>Date</th><th>Group</th><th>Account-days</th><th>Share</th></tr></thead>
             <tbody><tr><td>2026-08-13</td><td>A</td><td class='num'>738</td><td class='num'>3.3%</td></tr>
 <tr><td>2026-08-13</td><td>B</td><td class='num'>746</td><td class='num'>3.4%</td></tr>
 <tr><td>2026-08-14</td><td>A</td><td class='num'>2,421</td><td class='num'>10.9%</td></tr>
@@ -187,23 +189,23 @@
         </div>
 
         <div class="card">
-            <h2>4. Distribution Uniformity <span class="badge badge-warn">1 significant</span></h2>
-            <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=11,025 (49.6%) | B=11,224 (50.4%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
+            <h2>4. Distribution Uniformity <span class="badge badge-ok">All OK</span></h2>
+            <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=3,937 (49.6%) | B=4,000 (50.4%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
             <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>SMD</th><th>p-value</th><th>Sig</th></tr></thead>
-            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=11,025 (49.6%) | B=11,224 (50.4%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
-<tr class=''><td>TOTAL</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+107 [95% CI -104,+320]; ctrl=5560 test=5668</td><td class='num'>+0.013</td><td class='num'>0.3084</td><td></td></tr>
-<tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=7,671 (50.2%) | B=7,596 (49.8%)</td><td class='num'>&mdash;</td><td class='num'>0.0869</td><td></td></tr>
-<tr class=''><td>1: [0-4K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+14 [95% CI -23,+52]; ctrl=2036 test=2050</td><td class='num'>+0.012</td><td class='num'>0.4428</td><td></td></tr>
-<tr class='sig-fail'><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=1,738 (47.9%) | B=1,893 (52.1%)</td><td class='num'>&mdash;</td><td class='num'>0.0420</td><td>*</td></tr>
-<tr class=''><td>2: [4K-10K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-62 [95% CI -236,+102]; ctrl=7240 test=7178</td><td class='num'>-0.023</td><td class='num'>0.4996</td><td></td></tr>
-<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=1,616 (48.2%) | B=1,735 (51.8%)</td><td class='num'>&mdash;</td><td class='num'>0.1240</td><td></td></tr>
-<tr class=''><td>3: [10K+]</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-626 [95% CI -1421,+191]; ctrl=20483 test=19857</td><td class='num'>-0.053</td><td class='num'>0.1204</td><td></td></tr>
-<tr class=''><td>DPD 1-7</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=4,446 (49.7%) | B=4,491 (50.3%)</td><td class='num'>&mdash;</td><td class='num'>0.7117</td><td></td></tr>
-<tr class=''><td>DPD 1-7</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+79 [95% CI -228,+389]; ctrl=5211 test=5290</td><td class='num'>+0.011</td><td class='num'>0.6152</td><td></td></tr>
-<tr class=''><td>DPD 8-15</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=2,664 (49.2%) | B=2,753 (50.8%)</td><td class='num'>&mdash;</td><td class='num'>0.5817</td><td></td></tr>
-<tr class=''><td>DPD 8-15</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-7 [95% CI -440,+405]; ctrl=5508 test=5501</td><td class='num'>-0.001</td><td class='num'>0.9536</td><td></td></tr>
-<tr class=''><td>DPD 16-30</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=3,915 (49.6%) | B=3,980 (50.4%)</td><td class='num'>&mdash;</td><td class='num'>0.9496</td><td></td></tr>
-<tr class=''><td>DPD 16-30</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+217 [95% CI -159,+600]; ctrl=5992 test=6210</td><td class='num'>+0.025</td><td class='num'>0.2592</td><td></td></tr>
+            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=3,937 (49.6%) | B=4,000 (50.4%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+116 [95% CI -235,+460]; ctrl=5380 test=5496</td><td class='num'>+0.015</td><td class='num'>0.5092</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=2,753 (50.3%) | B=2,725 (49.7%)</td><td class='num'>&mdash;</td><td class='num'>0.3341</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-5 [95% CI -69,+63]; ctrl=2007 test=2002</td><td class='num'>-0.004</td><td class='num'>0.9204</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=613 (47.5%) | B=678 (52.5%)</td><td class='num'>&mdash;</td><td class='num'>0.1275</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+61 [95% CI -230,+362]; ctrl=7014 test=7075</td><td class='num'>+0.022</td><td class='num'>0.7020</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=571 (48.9%) | B=597 (51.1%)</td><td class='num'>&mdash;</td><td class='num'>0.6245</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-237 [95% CI -1629,+1115]; ctrl=19888 test=19651</td><td class='num'>-0.020</td><td class='num'>0.7416</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=2,031 (50.0%) | B=2,028 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.5804</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+130 [95% CI -330,+595]; ctrl=5013 test=5144</td><td class='num'>+0.018</td><td class='num'>0.5764</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=705 (48.4%) | B=752 (51.6%)</td><td class='num'>&mdash;</td><td class='num'>0.3532</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+18 [95% CI -775,+780]; ctrl=5374 test=5392</td><td class='num'>+0.002</td><td class='num'>0.9884</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=1,201 (49.6%) | B=1,220 (50.4%)</td><td class='num'>&mdash;</td><td class='num'>0.9965</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+144 [95% CI -572,+860]; ctrl=6003 test=6147</td><td class='num'>+0.017</td><td class='num'>0.6696</td><td></td></tr>
 </tbody></table>
         </div>
 
