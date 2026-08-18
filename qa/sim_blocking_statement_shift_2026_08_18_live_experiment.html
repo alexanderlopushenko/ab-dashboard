@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segmentation QA — sim_blocking_statement_shift_2026_08_18_live_experiment</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --accent: #3b82f6;
+        --green: #22c55e;
+        --red: #ef4444;
+        --yellow: #eab308;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg); color: var(--text); line-height: 1.5; padding: 2rem;
+    }
+    .header {
+        max-width: 1100px; margin: 0 auto 2rem; text-align: center;
+    }
+    .header h1 {
+        font-size: 1.75rem; font-weight: 700;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .header .sub { color: var(--text-muted); font-size: 0.9rem; }
+    .card {
+        max-width: 1100px; margin: 1.25rem auto;
+        background: var(--card-bg); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1.25rem 1.5rem; overflow-x: auto;
+    }
+    .card h2 {
+        font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .kpi-row { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .kpi {
+        background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+        padding: 0.75rem 1.25rem; text-align: center; min-width: 120px;
+    }
+    .kpi-val { display: block; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .kpi-label { display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead th {
+        text-align: left; padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid var(--border); color: var(--text-muted);
+        font-weight: 500; font-size: 0.8rem; white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid rgba(51,65,85,0.5); }
+    tbody tr:last-child { border-bottom: none; }
+    td { padding: 0.4rem 0.75rem; white-space: nowrap; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .muted { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .badge {
+        display: inline-block; padding: 2px 8px; border-radius: 4px;
+        font-size: 0.75rem; font-weight: 600;
+    }
+    .badge-ok { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-warn { background: rgba(234,179,8,0.15); color: #facc15; }
+    .sig-fail { background: rgba(239,68,68,0.07); }
+    .bar-bg {
+        display: inline-block; width: 120px; height: 10px;
+        background: var(--border); border-radius: 5px; vertical-align: middle;
+    }
+    .bar-fill { height: 100%; border-radius: 5px; }
+    .bar-label { font-size: 0.8rem; margin-left: 0.4rem; color: var(--text-muted); }
+    .footer {
+        max-width: 1100px; margin: 2rem auto 0; text-align: center;
+        color: var(--text-muted); font-size: 0.75rem;
+    }
+    @media (max-width: 768px) {
+        body { padding: 1rem; }
+        .kpi-row { gap: 0.75rem; }
+        .kpi { min-width: 90px; padding: 0.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Segmentation QA</h1>
+    <p class="sub">sim_blocking_statement_shift_2026_08_18_live_experiment &mdash; 2026-08-18</p>
+</div>
+
+
+    <div class="card">
+        <h2>CSP Object Check</h2>
+        <p class="muted">Test vs prod objects in CSP are told apart by
+        EXPERIMENTS.MODE (OBSERVATION = dry run, LIVE = real rollout)</p>
+        <table>
+            <thead><tr><th>Verdict</th><th>Mode</th><th>Status</th>
+            <th class="num">Assignments</th><th>Intake window</th><th>Note</th></tr></thead>
+            <tbody><tr><td><b style='color:#1a7f37'>PROD</b></td><td>LIVE</td><td>FINISHED</td><td class='num'>7,488</td><td>2026-08-18 &ndash; 2026-09-03</td><td class='muted'>live experiment, real effect on users</td></tr>
+</tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Detected Filters</h2>
+        <p class="muted">Auto-detected from test population, applied to eligible population query</p>
+        <div class="kpi-row">
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">-51.0, -30.0, -28.0, -27.0, -24.0, -23.0, -22.0, -21.0, -20.0, -17.0, -16.0, -15.0, -14.0, -10.0, -9.0, -8.0, -7.0, -6.0, -3.0, -2.0, -1.0, 0.0, 1.0, 4.0, 8.0, 11.0, 13.0, 57.0, 82.0, 530.0</span><span class="kpi-label">dpd_start_day</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">P_CURRENT</span><span class="kpi-label">account_type</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">>= 300</span><span class="kpi-label">credit_limit</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">ff_flg</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">death_flg</span></div>
+            
+            
+        </div>
+        
+    </div>
+
+        <div class="card">
+            <h2>1. Test Overview</h2>
+            <div class="kpi-row">
+                <div class="kpi"><span class="kpi-val">1</span><span class="kpi-label">Groups</span></div>
+                <div class="kpi"><span class="kpi-val">2026-08-18</span><span class="kpi-label">Start</span></div>
+                <div class="kpi"><span class="kpi-val">2026-08-18</span><span class="kpi-label">End</span></div>
+                <div class="kpi"><span class="kpi-val">7,454</span><span class="kpi-label">Unique accounts</span></div>
+                
+                <div class="kpi"><span class="kpi-val">100.0%</span><span class="kpi-label">group A share<br>7,454</span></div>
+            </div>
+            <p class="muted">Design split (actual): <b>A 100.0%</b> &mdash; compare with the intended split. This split is the baseline for the uniformity check (§4).</p>
+            
+            <table><thead><tr><th>Date</th><th>Group</th><th>Accounts</th><th>Share</th></tr></thead>
+            <tbody><tr><td>2026-08-18</td><td>A</td><td class='num'>7,453</td><td class='num'>100.0%</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>2. Test Overlaps <span class="badge badge-warn">19 overlap(s)</span></h2>
+            <table><thead><tr><th>Our Group</th><th>Overlapped Test</th><th>Their Group</th><th>Shared Accounts</th></tr></thead>
+            <tbody><tr><td>A</td><td>VMD_Tech_27_07</td><td>A</td><td class='num'>2</td></tr>
+<tr><td>A</td><td>accept_message_cooling_period_v2_26_07</td><td>A</td><td class='num'>2</td></tr>
+<tr><td>A</td><td>agency_0001</td><td>A</td><td class='num'>8</td></tr>
+<tr><td>A</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>A</td><td class='num'>2</td></tr>
+<tr><td>A</td><td>agency_91dpd_rotation_2025_08</td><td>L</td><td class='num'>1</td></tr>
+<tr><td>A</td><td>change_msg_credit_widget_main_2026_08_14_live_experiment</td><td>A</td><td class='num'>3</td></tr>
+<tr><td>A</td><td>change_msg_credit_widget_main_2026_08_14_live_experiment</td><td>B</td><td class='num'>6</td></tr>
+<tr><td>A</td><td>mab_v2.1_26_08</td><td>C</td><td class='num'>1</td></tr>
+<tr><td>A</td><td>my_number_v1_26_07</td><td>A</td><td class='num'>1</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>A</td><td class='num'>308</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>B</td><td class='num'>338</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>C</td><td class='num'>310</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>D</td><td class='num'>327</td></tr>
+<tr><td>A</td><td>restruct_1call_CCR_2024_08</td><td>B</td><td class='num'>1</td></tr>
+<tr><td>A</td><td>riskdev_17569_sim_global_2026_08_12_live</td><td>B</td><td class='num'>7,453</td></tr>
+<tr><td>A</td><td>stp_notif_v2_04_03_26</td><td>A</td><td class='num'>146</td></tr>
+<tr><td>A</td><td>stp_notif_v2_04_03_26</td><td>B</td><td class='num'>120</td></tr>
+<tr><td>A</td><td>telephony_operators_v1_2026_07</td><td>A</td><td class='num'>1</td></tr>
+<tr><td>A</td><td>telephony_operators_v1_2026_07</td><td>B</td><td class='num'>1</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>3. Daily Segmentation Coverage</h2>
+            <table><thead><tr><th>Date</th><th>Eligible</th><th>Segmented</th><th>Missing</th><th>Coverage</th></tr></thead>
+            <tbody><tr><td>2026-08-18</td><td class='num'>4,504,049</td><td class='num'>7,451</td><td class='num'>4,496,598</td><td><div class='bar-bg'><div class='bar-fill' style='width:0.2%;background:#ef4444'></div></div><span class='bar-label'>0.2%</span></td></tr>
+</tbody></table>
+        </div>
+<div class="card"><h2>4. Uniformity</h2><p class="muted">Not enough data.</p></div>
+
+        <div class="card">
+            <h2>5. Call Strategy Distribution</h2>
+            <p class="muted">event_code from dwh_collection_prod.dbt.dm_calls_event_cli joined by client_id. Two aggregations:
+            strategy on each client's segmentation date, and on the last available day
+            (strategies are re-assigned daily, so the two can differ).</p>
+            
+            <div class="strat-block">
+                <h3 style="font-size:1rem;margin:1.2rem 0 0.3rem">On segmentation date </h3>
+                <p class="muted">Not enough groups for a balance test.</p>
+                <div class="kpi-row"><div class="kpi"><span class="kpi-val">0.2%</span><span class="kpi-label">group A coverage<br>14/7,488</span></div></div>
+                
+                <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>Max &Delta; pp</th></tr></thead><tbody><tr><td>last_day_PTP_reminder_cc</td><td class='num'>4</td><td class='num'>4</td><td class='num'>28.6%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_cl</td><td class='num'>4</td><td class='num'>4</td><td class='num'>28.6%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_all_products_3rd_base_vmd_tech_control</td><td class='num'>2</td><td class='num'>2</td><td class='num'>14.3%</td><td class='num'>0.0</td></tr>
+<tr><td>Customer_3rd_base_MPC_operators_test</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_cl_default_operators_test</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+<tr><td>default_control</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_pos</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+</tbody></table>
+                
+            </div>
+            <div class="strat-block">
+                <h3 style="font-size:1rem;margin:1.2rem 0 0.3rem">On last available day (2026-08-18) </h3>
+                <p class="muted">Not enough groups for a balance test.</p>
+                <div class="kpi-row"><div class="kpi"><span class="kpi-val">0.2%</span><span class="kpi-label">group A coverage<br>14/7,488</span></div></div>
+                
+                <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>Max &Delta; pp</th></tr></thead><tbody><tr><td>last_day_PTP_reminder_cc</td><td class='num'>4</td><td class='num'>4</td><td class='num'>28.6%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_cl</td><td class='num'>4</td><td class='num'>4</td><td class='num'>28.6%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_all_products_3rd_base_vmd_tech_control</td><td class='num'>2</td><td class='num'>2</td><td class='num'>14.3%</td><td class='num'>0.0</td></tr>
+<tr><td>Customer_3rd_base_MPC_operators_test</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+<tr><td>collection_cl_default_operators_test</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+<tr><td>default_control</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+<tr><td>pre_collection_pos</td><td class='num'>1</td><td class='num'>1</td><td class='num'>7.1%</td><td class='num'>0.0</td></tr>
+</tbody></table>
+                
+            </div>
+        </div>
+
+<div class="footer">
+    Generated on 2026-08-18 &middot; segmentation_qa.py &middot; Collection Analytics
+</div>
+</body>
+</html>
