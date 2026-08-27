@@ -69,6 +69,18 @@
         background: var(--border); border-radius: 5px; vertical-align: middle;
     }
     .bar-fill { height: 100%; border-radius: 5px; }
+    .ctl-row {
+        display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+        margin: 0.5rem 0 0.75rem; font-size: 0.8rem; color: var(--text-muted);
+    }
+    .ctl-row label { display: flex; align-items: center; gap: 0.4rem; }
+    .ctl-row select {
+        background: var(--bg); color: var(--text); border: 1px solid var(--border);
+        border-radius: 6px; padding: 0.3rem 0.5rem; font-size: 0.8rem;
+    }
+    .chart-wrap { width: 100%; overflow-x: auto; }
+    .chart-wrap svg { display: block; width: 100%; height: auto; }
+    .dp-stat { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; }
     .bar-label { font-size: 0.8rem; margin-left: 0.4rem; color: var(--text-muted); }
     .footer {
         max-width: 1100px; margin: 2rem auto 0; text-align: center;
@@ -203,27 +215,27 @@
             <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=75,454 (50.1%) | B=75,024 (49.9%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
             <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>SMD</th><th>p-value</th><th>Sig</th></tr></thead>
             <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=75,454 (50.1%) | B=75,024 (49.9%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
-<tr class=''><td>TOTAL</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+34 [95% CI -55,+123]; ctrl=6358 test=6392</td><td class='num'>+0.004</td><td class='num'>0.4712</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+34 [95% CI -56,+124]; ctrl=6358 test=6392</td><td class='num'>+0.004</td><td class='num'>0.4644</td><td></td></tr>
 <tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=52,114 (50.2%) | B=51,651 (49.8%)</td><td class='num'>&mdash;</td><td class='num'>0.6053</td><td></td></tr>
-<tr class=''><td>1: [0-4K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-7 [95% CI -24,+10]; ctrl=2481 test=2474</td><td class='num'>-0.005</td><td class='num'>0.4228</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-7 [95% CI -23,+10]; ctrl=2481 test=2474</td><td class='num'>-0.005</td><td class='num'>0.3996</td><td></td></tr>
 <tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=11,729 (50.0%) | B=11,737 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.6242</td><td></td></tr>
-<tr class=''><td>2: [4K-10K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+8 [95% CI -64,+81]; ctrl=8002 test=8009</td><td class='num'>+0.003</td><td class='num'>0.8232</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+8 [95% CI -67,+80]; ctrl=8002 test=8009</td><td class='num'>+0.003</td><td class='num'>0.8204</td><td></td></tr>
 <tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=11,611 (49.9%) | B=11,636 (50.1%)</td><td class='num'>&mdash;</td><td class='num'>0.5487</td><td></td></tr>
-<tr class=''><td>3: [10K+]</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+53 [95% CI -280,+396]; ctrl=22101 test=22154</td><td class='num'>+0.004</td><td class='num'>0.7656</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+53 [95% CI -296,+391]; ctrl=22101 test=22154</td><td class='num'>+0.004</td><td class='num'>0.7548</td><td></td></tr>
 <tr class=''><td>DPD <=0</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=46 (51.7%) | B=43 (48.3%)</td><td class='num'>&mdash;</td><td class='num'>0.7710</td><td></td></tr>
-<tr class=''><td>DPD <=0</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+1096 [95% CI -4595,+6870]; ctrl=14640 test=15736</td><td class='num'>+0.079</td><td class='num'>0.7152</td><td></td></tr>
+<tr class=''><td>DPD <=0</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+1096 [95% CI -4632,+6901]; ctrl=14640 test=15736</td><td class='num'>+0.079</td><td class='num'>0.6968</td><td></td></tr>
 <tr class=''><td>DPD 1-7</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=16,531 (50.2%) | B=16,414 (49.8%)</td><td class='num'>&mdash;</td><td class='num'>0.8998</td><td></td></tr>
-<tr class=''><td>DPD 1-7</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-86 [95% CI -249,+81]; ctrl=5260 test=5174</td><td class='num'>-0.011</td><td class='num'>0.3248</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-86 [95% CI -252,+75]; ctrl=5260 test=5174</td><td class='num'>-0.011</td><td class='num'>0.2928</td><td></td></tr>
 <tr class=''><td>DPD 8-15</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,113 (49.8%) | B=12,208 (50.2%)</td><td class='num'>&mdash;</td><td class='num'>0.2915</td><td></td></tr>
-<tr class=''><td>DPD 8-15</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-12 [95% CI -213,+192]; ctrl=5578 test=5566</td><td class='num'>-0.002</td><td class='num'>0.8996</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-12 [95% CI -223,+191]; ctrl=5578 test=5566</td><td class='num'>-0.002</td><td class='num'>0.8992</td><td></td></tr>
 <tr class=''><td>DPD 16-30</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,459 (50.6%) | B=12,146 (49.4%)</td><td class='num'>&mdash;</td><td class='num'>0.1218</td><td></td></tr>
-<tr class=''><td>DPD 16-30</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+129 [95% CI -75,+335]; ctrl=5728 test=5858</td><td class='num'>+0.016</td><td class='num'>0.2132</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+129 [95% CI -73,+332]; ctrl=5728 test=5858</td><td class='num'>+0.016</td><td class='num'>0.2116</td><td></td></tr>
 <tr class=''><td>DPD 31-60</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=19,409 (49.8%) | B=19,536 (50.2%)</td><td class='num'>&mdash;</td><td class='num'>0.2273</td><td></td></tr>
-<tr class=''><td>DPD 31-60</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-5 [95% CI -187,+185]; ctrl=6876 test=6871</td><td class='num'>-0.001</td><td class='num'>0.9232</td><td></td></tr>
+<tr class=''><td>DPD 31-60</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-5 [95% CI -193,+173]; ctrl=6876 test=6871</td><td class='num'>-0.001</td><td class='num'>0.9296</td><td></td></tr>
 <tr class=''><td>DPD 61-90</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=14,788 (50.4%) | B=14,576 (49.6%)</td><td class='num'>&mdash;</td><td class='num'>0.4548</td><td></td></tr>
-<tr class=''><td>DPD 61-90</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+128 [95% CI -104,+361]; ctrl=7929 test=8057</td><td class='num'>+0.013</td><td class='num'>0.2696</td><td></td></tr>
+<tr class=''><td>DPD 61-90</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+128 [95% CI -103,+361]; ctrl=7929 test=8057</td><td class='num'>+0.013</td><td class='num'>0.2756</td><td></td></tr>
 <tr class=''><td>DPD 91+</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=108 (51.7%) | B=101 (48.3%)</td><td class='num'>&mdash;</td><td class='num'>0.6578</td><td></td></tr>
-<tr class='sig-fail'><td>DPD 91+</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>imbalanced; meanΔ=+8605 [95% CI +1877,+15596]; ctrl=22979 test=31585</td><td class='num'>+0.336</td><td class='num'>0.0128</td><td>*</td></tr>
+<tr class='sig-fail'><td>DPD 91+</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>imbalanced; meanΔ=+8605 [95% CI +1736,+15651]; ctrl=22979 test=31585</td><td class='num'>+0.336</td><td class='num'>0.0148</td><td>*</td></tr>
 </tbody></table>
         </div>
 
@@ -276,6 +288,215 @@
                 
             </div>
         </div>
+
+    <div class="card">
+        <h2>6. DPD &times; Product Distribution <span class="badge badge-ok">All OK</span></h2>
+        <p class="muted">Product mix: product mix balanced across groups &mdash; chi2=0.7005, dof=3, p=0.8731. Client distribution over DPD at test entry, per
+        product. Pick a product to see its own DPD profile; the groups must
+        overlap &mdash; a systematic gap means the split is not random inside that
+        product. Share view (% within group) is the comparable one, counts differ
+        because the groups differ in size.</p>
+        <div class="ctl-row">
+            <label>Product
+                <select id="dp-product"><option value="__ALL__">ALL products</option><option value="P_CURRENT">P_CURRENT</option><option value="CASH_LOAN_1">CASH_LOAN_1</option><option value="CASH_LOAN_2">CASH_LOAN_2</option><option value="POS_LOAN">POS_LOAN</option></select>
+            </label>
+            <label>DPD axis
+                <select id="dp-gran">
+                    <option value="bucket">buckets</option>
+                    <option value="raw">raw DPD</option>
+                </select>
+            </label>
+            <label>Metric
+                <select id="dp-metric">
+                    <option value="share">% within group</option>
+                    <option value="count">clients</option>
+                </select>
+            </label>
+            <span id="dp-legend"></span>
+        </div>
+        <div class="chart-wrap" id="dp-chart"></div>
+        <p class="dp-stat" id="dp-stat"></p>
+        <table style="margin-top:1rem"><thead><tr><th>Product</th><th>Clients</th><th>% of test</th><th>grp A n</th><th>grp A %</th><th>grp B n</th><th>grp B %</th><th>p (split)</th><th>Median DPD</th><th>p (DPD profile)</th></tr></thead>
+        <tbody><tr class=''><td>P_CURRENT</td><td class='num'>149,899</td><td class='num'>99.6%</td><td class='num'>75,155</td><td class='num'>99.6%</td><td class='num'>74,744</td><td class='num'>99.6%</td><td class='num'>0.9643</td><td class='num'>23</td><td class='num'>0.2128</td></tr>
+<tr class=''><td>CASH_LOAN_1</td><td class='num'>388</td><td class='num'>0.3%</td><td class='num'>198</td><td class='num'>0.3%</td><td class='num'>190</td><td class='num'>0.3%</td><td class='num'>0.7264</td><td class='num'>85</td><td class='num'>0.3278</td></tr>
+<tr class=''><td>CASH_LOAN_2</td><td class='num'>132</td><td class='num'>0.1%</td><td class='num'>70</td><td class='num'>0.1%</td><td class='num'>62</td><td class='num'>0.1%</td><td class='num'>0.5070</td><td class='num'>7</td><td class='num'>0.4581</td></tr>
+<tr class=''><td>POS_LOAN</td><td class='num'>59</td><td class='num'>0.0%</td><td class='num'>31</td><td class='num'>0.0%</td><td class='num'>28</td><td class='num'>0.0%</td><td class='num'>0.7124</td><td class='num'>84</td><td class='num'>0.8910</td></tr>
+</tbody></table>
+        <p class="muted" style="margin-top:0.5rem">
+        <b>% inside a group column</b> = share of that group's clients sitting in
+        the product; it must match across groups.
+        <b>p (split)</b> = chi-square GoF of the product's group split vs the
+        design split. <b>p (DPD profile)</b> = chi-square independence of DPD
+        buckets &times; groups inside the product (buckets under
+        20 clients merged); * = significant at alpha=0.05.</p>
+    </div>
+
+<script>
+(function () {
+  var DATA = {"groups":["A","B"],"rows":[{"g":"A","p":"CASH_LOAN_1","d":-25,"n":2},{"g":"A","p":"CASH_LOAN_1","d":-21,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-19,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-18,"n":2},{"g":"A","p":"CASH_LOAN_1","d":-15,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-14,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-11,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-8,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-7,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-6,"n":1},{"g":"A","p":"CASH_LOAN_1","d":-1,"n":1},{"g":"A","p":"CASH_LOAN_1","d":0,"n":1},{"g":"A","p":"CASH_LOAN_1","d":3,"n":3},{"g":"A","p":"CASH_LOAN_1","d":7,"n":1},{"g":"A","p":"CASH_LOAN_1","d":8,"n":1},{"g":"A","p":"CASH_LOAN_1","d":10,"n":1},{"g":"A","p":"CASH_LOAN_1","d":17,"n":3},{"g":"A","p":"CASH_LOAN_1","d":23,"n":1},{"g":"A","p":"CASH_LOAN_1","d":24,"n":1},{"g":"A","p":"CASH_LOAN_1","d":30,"n":1},{"g":"A","p":"CASH_LOAN_1","d":31,"n":3},{"g":"A","p":"CASH_LOAN_1","d":35,"n":4},{"g":"A","p":"CASH_LOAN_1","d":37,"n":1},{"g":"A","p":"CASH_LOAN_1","d":38,"n":5},{"g":"A","p":"CASH_LOAN_1","d":42,"n":2},{"g":"A","p":"CASH_LOAN_1","d":43,"n":3},{"g":"A","p":"CASH_LOAN_1","d":44,"n":1},{"g":"A","p":"CASH_LOAN_1","d":45,"n":4},{"g":"A","p":"CASH_LOAN_1","d":48,"n":1},{"g":"A","p":"CASH_LOAN_1","d":49,"n":1},{"g":"A","p":"CASH_LOAN_1","d":51,"n":3},{"g":"A","p":"CASH_LOAN_1","d":52,"n":3},{"g":"A","p":"CASH_LOAN_1","d":55,"n":1},{"g":"A","p":"CASH_LOAN_1","d":56,"n":6},{"g":"A","p":"CASH_LOAN_1","d":57,"n":3},{"g":"A","p":"CASH_LOAN_1","d":59,"n":4},{"g":"A","p":"CASH_LOAN_1","d":66,"n":2},{"g":"A","p":"CASH_LOAN_1","d":69,"n":3},{"g":"A","p":"CASH_LOAN_1","d":70,"n":2},{"g":"A","p":"CASH_LOAN_1","d":71,"n":2},{"g":"A","p":"CASH_LOAN_1","d":72,"n":3},{"g":"A","p":"CASH_LOAN_1","d":73,"n":4},{"g":"A","p":"CASH_LOAN_1","d":76,"n":2},{"g":"A","p":"CASH_LOAN_1","d":77,"n":1},{"g":"A","p":"CASH_LOAN_1","d":79,"n":5},{"g":"A","p":"CASH_LOAN_1","d":80,"n":3},{"g":"A","p":"CASH_LOAN_1","d":83,"n":1},{"g":"A","p":"CASH_LOAN_1","d":85,"n":2},{"g":"A","p":"CASH_LOAN_1","d":86,"n":4},{"g":"A","p":"CASH_LOAN_1","d":87,"n":1},{"g":"A","p":"CASH_LOAN_1","d":92,"n":2},{"g":"A","p":"CASH_LOAN_1","d":94,"n":4},{"g":"A","p":"CASH_LOAN_1","d":97,"n":1},{"g":"A","p":"CASH_LOAN_1","d":99,"n":2},{"g":"A","p":"CASH_LOAN_1","d":100,"n":2},{"g":"A","p":"CASH_LOAN_1","d":101,"n":3},{"g":"A","p":"CASH_LOAN_1","d":104,"n":1},{"g":"A","p":"CASH_LOAN_1","d":105,"n":2},{"g":"A","p":"CASH_LOAN_1","d":106,"n":3},{"g":"A","p":"CASH_LOAN_1","d":108,"n":1},{"g":"A","p":"CASH_LOAN_1","d":111,"n":2},{"g":"A","p":"CASH_LOAN_1","d":115,"n":2},{"g":"A","p":"CASH_LOAN_1","d":121,"n":5},{"g":"A","p":"CASH_LOAN_1","d":122,"n":2},{"g":"A","p":"CASH_LOAN_1","d":125,"n":2},{"g":"A","p":"CASH_LOAN_1","d":126,"n":2},{"g":"A","p":"CASH_LOAN_1","d":128,"n":1},{"g":"A","p":"CASH_LOAN_1","d":129,"n":3},{"g":"A","p":"CASH_LOAN_1","d":133,"n":2},{"g":"A","p":"CASH_LOAN_1","d":134,"n":1},{"g":"A","p":"CASH_LOAN_1","d":136,"n":3},{"g":"A","p":"CASH_LOAN_1","d":141,"n":2},{"g":"A","p":"CASH_LOAN_1","d":142,"n":1},{"g":"A","p":"CASH_LOAN_1","d":143,"n":4},{"g":"A","p":"CASH_LOAN_1","d":148,"n":4},{"g":"A","p":"CASH_LOAN_1","d":154,"n":1},{"g":"A","p":"CASH_LOAN_1","d":157,"n":3},{"g":"A","p":"CASH_LOAN_1","d":160,"n":1},{"g":"A","p":"CASH_LOAN_1","d":162,"n":1},{"g":"A","p":"CASH_LOAN_1","d":163,"n":3},{"g":"A","p":"CASH_LOAN_1","d":168,"n":2},{"g":"A","p":"CASH_LOAN_1","d":169,"n":1},{"g":"A","p":"CASH_LOAN_1","d":171,"n":1},{"g":"A","p":"CASH_LOAN_1","d":175,"n":1},{"g":"A","p":"CASH_LOAN_1","d":176,"n":1},{"g":"A","p":"CASH_LOAN_1","d":189,"n":1},{"g":"A","p":"CASH_LOAN_1","d":192,"n":1},{"g":"A","p":"CASH_LOAN_1","d":198,"n":1},{"g":"A","p":"CASH_LOAN_1","d":199,"n":1},{"g":"A","p":"CASH_LOAN_1","d":212,"n":1},{"g":"A","p":"CASH_LOAN_1","d":217,"n":2},{"g":"A","p":"CASH_LOAN_1","d":223,"n":1},{"g":"A","p":"CASH_LOAN_1","d":231,"n":1},{"g":"A","p":"CASH_LOAN_1","d":268,"n":1},{"g":"A","p":"CASH_LOAN_1","d":269,"n":1},{"g":"A","p":"CASH_LOAN_1","d":297,"n":3},{"g":"A","p":"CASH_LOAN_1","d":315,"n":1},{"g":"A","p":"CASH_LOAN_1","d":332,"n":1},{"g":"A","p":"CASH_LOAN_1","d":335,"n":1},{"g":"A","p":"CASH_LOAN_1","d":339,"n":1},{"g":"A","p":"CASH_LOAN_1","d":358,"n":1},{"g":"A","p":"CASH_LOAN_1","d":500,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-29,"n":3},{"g":"A","p":"CASH_LOAN_2","d":-28,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-25,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-21,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-19,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-18,"n":2},{"g":"A","p":"CASH_LOAN_2","d":-14,"n":2},{"g":"A","p":"CASH_LOAN_2","d":-13,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-12,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-11,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-8,"n":1},{"g":"A","p":"CASH_LOAN_2","d":-7,"n":2},{"g":"A","p":"CASH_LOAN_2","d":-6,"n":6},{"g":"A","p":"CASH_LOAN_2","d":-5,"n":3},{"g":"A","p":"CASH_LOAN_2","d":-1,"n":1},{"g":"A","p":"CASH_LOAN_2","d":0,"n":1},{"g":"A","p":"CASH_LOAN_2","d":2,"n":2},{"g":"A","p":"CASH_LOAN_2","d":3,"n":3},{"g":"A","p":"CASH_LOAN_2","d":7,"n":2},{"g":"A","p":"CASH_LOAN_2","d":9,"n":1},{"g":"A","p":"CASH_LOAN_2","d":10,"n":2},{"g":"A","p":"CASH_LOAN_2","d":14,"n":1},{"g":"A","p":"CASH_LOAN_2","d":16,"n":1},{"g":"A","p":"CASH_LOAN_2","d":17,"n":1},{"g":"A","p":"CASH_LOAN_2","d":20,"n":1},{"g":"A","p":"CASH_LOAN_2","d":21,"n":1},{"g":"A","p":"CASH_LOAN_2","d":24,"n":4},{"g":"A","p":"CASH_LOAN_2","d":31,"n":3},{"g":"A","p":"CASH_LOAN_2","d":35,"n":1},{"g":"A","p":"CASH_LOAN_2","d":38,"n":3},{"g":"A","p":"CASH_LOAN_2","d":42,"n":2},{"g":"A","p":"CASH_LOAN_2","d":43,"n":1},{"g":"A","p":"CASH_LOAN_2","d":45,"n":1},{"g":"A","p":"CASH_LOAN_2","d":51,"n":2},{"g":"A","p":"CASH_LOAN_2","d":52,"n":1},{"g":"A","p":"CASH_LOAN_2","d":55,"n":3},{"g":"A","p":"CASH_LOAN_2","d":57,"n":3},{"g":"A","p":"CASH_LOAN_2","d":66,"n":3},{"g":"A","p":"POS_LOAN","d":-18,"n":1},{"g":"A","p":"POS_LOAN","d":-15,"n":1},{"g":"A","p":"POS_LOAN","d":-12,"n":1},{"g":"A","p":"POS_LOAN","d":-6,"n":1},{"g":"A","p":"POS_LOAN","d":24,"n":1},{"g":"A","p":"POS_LOAN","d":45,"n":1},{"g":"A","p":"POS_LOAN","d":52,"n":1},{"g":"A","p":"POS_LOAN","d":55,"n":1},{"g":"A","p":"POS_LOAN","d":59,"n":2},{"g":"A","p":"POS_LOAN","d":66,"n":1},{"g":"A","p":"POS_LOAN","d":76,"n":1},{"g":"A","p":"POS_LOAN","d":77,"n":2},{"g":"A","p":"POS_LOAN","d":80,"n":1},{"g":"A","p":"POS_LOAN","d":101,"n":1},{"g":"A","p":"POS_LOAN","d":105,"n":1},{"g":"A","p":"POS_LOAN","d":108,"n":1},{"g":"A","p":"POS_LOAN","d":115,"n":1},{"g":"A","p":"POS_LOAN","d":125,"n":1},{"g":"A","p":"POS_LOAN","d":140,"n":1},{"g":"A","p":"POS_LOAN","d":143,"n":1},{"g":"A","p":"POS_LOAN","d":157,"n":1},{"g":"A","p":"POS_LOAN","d":174,"n":1},{"g":"A","p":"POS_LOAN","d":178,"n":1},{"g":"A","p":"POS_LOAN","d":190,"n":1},{"g":"A","p":"POS_LOAN","d":196,"n":1},{"g":"A","p":"POS_LOAN","d":197,"n":1},{"g":"A","p":"POS_LOAN","d":294,"n":1},{"g":"A","p":"POS_LOAN","d":309,"n":1},{"g":"A","p":"POS_LOAN","d":591,"n":1},{"g":"A","p":"P_CURRENT","d":1,"n":1550},{"g":"A","p":"P_CURRENT","d":2,"n":3434},{"g":"A","p":"P_CURRENT","d":3,"n":7844},{"g":"A","p":"P_CURRENT","d":6,"n":1932},{"g":"A","p":"P_CURRENT","d":7,"n":1760},{"g":"A","p":"P_CURRENT","d":8,"n":1757},{"g":"A","p":"P_CURRENT","d":9,"n":1707},{"g":"A","p":"P_CURRENT","d":10,"n":4272},{"g":"A","p":"P_CURRENT","d":13,"n":1222},{"g":"A","p":"P_CURRENT","d":14,"n":1555},{"g":"A","p":"P_CURRENT","d":15,"n":1594},{"g":"A","p":"P_CURRENT","d":16,"n":1301},{"g":"A","p":"P_CURRENT","d":17,"n":3976},{"g":"A","p":"P_CURRENT","d":20,"n":1369},{"g":"A","p":"P_CURRENT","d":21,"n":1117},{"g":"A","p":"P_CURRENT","d":22,"n":688},{"g":"A","p":"P_CURRENT","d":23,"n":856},{"g":"A","p":"P_CURRENT","d":24,"n":2427},{"g":"A","p":"P_CURRENT","d":30,"n":710},{"g":"A","p":"P_CURRENT","d":31,"n":2164},{"g":"A","p":"P_CURRENT","d":34,"n":630},{"g":"A","p":"P_CURRENT","d":35,"n":603},{"g":"A","p":"P_CURRENT","d":36,"n":709},{"g":"A","p":"P_CURRENT","d":37,"n":676},{"g":"A","p":"P_CURRENT","d":38,"n":2074},{"g":"A","p":"P_CURRENT","d":41,"n":630},{"g":"A","p":"P_CURRENT","d":42,"n":599},{"g":"A","p":"P_CURRENT","d":43,"n":629},{"g":"A","p":"P_CURRENT","d":44,"n":630},{"g":"A","p":"P_CURRENT","d":45,"n":2397},{"g":"A","p":"P_CURRENT","d":48,"n":665},{"g":"A","p":"P_CURRENT","d":49,"n":626},{"g":"A","p":"P_CURRENT","d":50,"n":901},{"g":"A","p":"P_CURRENT","d":51,"n":899},{"g":"A","p":"P_CURRENT","d":52,"n":1731},{"g":"A","p":"P_CURRENT","d":55,"n":606},{"g":"A","p":"P_CURRENT","d":56,"n":535},{"g":"A","p":"P_CURRENT","d":57,"n":496},{"g":"A","p":"P_CURRENT","d":59,"n":1139},{"g":"A","p":"P_CURRENT","d":62,"n":522},{"g":"A","p":"P_CURRENT","d":63,"n":547},{"g":"A","p":"P_CURRENT","d":64,"n":551},{"g":"A","p":"P_CURRENT","d":65,"n":561},{"g":"A","p":"P_CURRENT","d":66,"n":1736},{"g":"A","p":"P_CURRENT","d":69,"n":559},{"g":"A","p":"P_CURRENT","d":70,"n":521},{"g":"A","p":"P_CURRENT","d":71,"n":680},{"g":"A","p":"P_CURRENT","d":72,"n":465},{"g":"A","p":"P_CURRENT","d":73,"n":1887},{"g":"A","p":"P_CURRENT","d":76,"n":621},{"g":"A","p":"P_CURRENT","d":77,"n":571},{"g":"A","p":"P_CURRENT","d":78,"n":569},{"g":"A","p":"P_CURRENT","d":79,"n":548},{"g":"A","p":"P_CURRENT","d":80,"n":2055},{"g":"A","p":"P_CURRENT","d":83,"n":504},{"g":"A","p":"P_CURRENT","d":84,"n":461},{"g":"A","p":"P_CURRENT","d":85,"n":435},{"g":"A","p":"P_CURRENT","d":86,"n":443},{"g":"A","p":"P_CURRENT","d":87,"n":509},{"g":"B","p":"CASH_LOAN_1","d":-29,"n":1},{"g":"B","p":"CASH_LOAN_1","d":-22,"n":1},{"g":"B","p":"CASH_LOAN_1","d":-19,"n":1},{"g":"B","p":"CASH_LOAN_1","d":-18,"n":1},{"g":"B","p":"CASH_LOAN_1","d":-15,"n":1},{"g":"B","p":"CASH_LOAN_1","d":-11,"n":2},{"g":"B","p":"CASH_LOAN_1","d":-6,"n":1},{"g":"B","p":"CASH_LOAN_1","d":-5,"n":1},{"g":"B","p":"CASH_LOAN_1","d":0,"n":4},{"g":"B","p":"CASH_LOAN_1","d":2,"n":1},{"g":"B","p":"CASH_LOAN_1","d":3,"n":1},{"g":"B","p":"CASH_LOAN_1","d":6,"n":2},{"g":"B","p":"CASH_LOAN_1","d":9,"n":1},{"g":"B","p":"CASH_LOAN_1","d":10,"n":3},{"g":"B","p":"CASH_LOAN_1","d":13,"n":2},{"g":"B","p":"CASH_LOAN_1","d":14,"n":1},{"g":"B","p":"CASH_LOAN_1","d":16,"n":1},{"g":"B","p":"CASH_LOAN_1","d":17,"n":2},{"g":"B","p":"CASH_LOAN_1","d":23,"n":3},{"g":"B","p":"CASH_LOAN_1","d":24,"n":4},{"g":"B","p":"CASH_LOAN_1","d":34,"n":1},{"g":"B","p":"CASH_LOAN_1","d":36,"n":1},{"g":"B","p":"CASH_LOAN_1","d":37,"n":1},{"g":"B","p":"CASH_LOAN_1","d":38,"n":4},{"g":"B","p":"CASH_LOAN_1","d":41,"n":1},{"g":"B","p":"CASH_LOAN_1","d":43,"n":1},{"g":"B","p":"CASH_LOAN_1","d":44,"n":3},{"g":"B","p":"CASH_LOAN_1","d":45,"n":5},{"g":"B","p":"CASH_LOAN_1","d":49,"n":2},{"g":"B","p":"CASH_LOAN_1","d":50,"n":2},{"g":"B","p":"CASH_LOAN_1","d":52,"n":5},{"g":"B","p":"CASH_LOAN_1","d":56,"n":2},{"g":"B","p":"CASH_LOAN_1","d":57,"n":1},{"g":"B","p":"CASH_LOAN_1","d":59,"n":3},{"g":"B","p":"CASH_LOAN_1","d":62,"n":2},{"g":"B","p":"CASH_LOAN_1","d":63,"n":1},{"g":"B","p":"CASH_LOAN_1","d":66,"n":4},{"g":"B","p":"CASH_LOAN_1","d":69,"n":1},{"g":"B","p":"CASH_LOAN_1","d":70,"n":2},{"g":"B","p":"CASH_LOAN_1","d":71,"n":1},{"g":"B","p":"CASH_LOAN_1","d":72,"n":1},{"g":"B","p":"CASH_LOAN_1","d":73,"n":1},{"g":"B","p":"CASH_LOAN_1","d":76,"n":1},{"g":"B","p":"CASH_LOAN_1","d":77,"n":3},{"g":"B","p":"CASH_LOAN_1","d":78,"n":2},{"g":"B","p":"CASH_LOAN_1","d":80,"n":3},{"g":"B","p":"CASH_LOAN_1","d":83,"n":1},{"g":"B","p":"CASH_LOAN_1","d":84,"n":2},{"g":"B","p":"CASH_LOAN_1","d":85,"n":5},{"g":"B","p":"CASH_LOAN_1","d":86,"n":3},{"g":"B","p":"CASH_LOAN_1","d":87,"n":3},{"g":"B","p":"CASH_LOAN_1","d":91,"n":1},{"g":"B","p":"CASH_LOAN_1","d":92,"n":1},{"g":"B","p":"CASH_LOAN_1","d":94,"n":2},{"g":"B","p":"CASH_LOAN_1","d":97,"n":1},{"g":"B","p":"CASH_LOAN_1","d":98,"n":1},{"g":"B","p":"CASH_LOAN_1","d":99,"n":2},{"g":"B","p":"CASH_LOAN_1","d":101,"n":3},{"g":"B","p":"CASH_LOAN_1","d":104,"n":1},{"g":"B","p":"CASH_LOAN_1","d":106,"n":2},{"g":"B","p":"CASH_LOAN_1","d":107,"n":3},{"g":"B","p":"CASH_LOAN_1","d":108,"n":2},{"g":"B","p":"CASH_LOAN_1","d":111,"n":2},{"g":"B","p":"CASH_LOAN_1","d":113,"n":1},{"g":"B","p":"CASH_LOAN_1","d":115,"n":5},{"g":"B","p":"CASH_LOAN_1","d":121,"n":1},{"g":"B","p":"CASH_LOAN_1","d":122,"n":1},{"g":"B","p":"CASH_LOAN_1","d":127,"n":1},{"g":"B","p":"CASH_LOAN_1","d":129,"n":1},{"g":"B","p":"CASH_LOAN_1","d":132,"n":1},{"g":"B","p":"CASH_LOAN_1","d":133,"n":1},{"g":"B","p":"CASH_LOAN_1","d":136,"n":1},{"g":"B","p":"CASH_LOAN_1","d":139,"n":1},{"g":"B","p":"CASH_LOAN_1","d":140,"n":2},{"g":"B","p":"CASH_LOAN_1","d":141,"n":1},{"g":"B","p":"CASH_LOAN_1","d":142,"n":1},{"g":"B","p":"CASH_LOAN_1","d":143,"n":3},{"g":"B","p":"CASH_LOAN_1","d":148,"n":1},{"g":"B","p":"CASH_LOAN_1","d":153,"n":1},{"g":"B","p":"CASH_LOAN_1","d":154,"n":1},{"g":"B","p":"CASH_LOAN_1","d":155,"n":1},{"g":"B","p":"CASH_LOAN_1","d":156,"n":1},{"g":"B","p":"CASH_LOAN_1","d":157,"n":1},{"g":"B","p":"CASH_LOAN_1","d":162,"n":1},{"g":"B","p":"CASH_LOAN_1","d":163,"n":1},{"g":"B","p":"CASH_LOAN_1","d":169,"n":1},{"g":"B","p":"CASH_LOAN_1","d":170,"n":1},{"g":"B","p":"CASH_LOAN_1","d":174,"n":1},{"g":"B","p":"CASH_LOAN_1","d":175,"n":3},{"g":"B","p":"CASH_LOAN_1","d":181,"n":2},{"g":"B","p":"CASH_LOAN_1","d":182,"n":1},{"g":"B","p":"CASH_LOAN_1","d":185,"n":1},{"g":"B","p":"CASH_LOAN_1","d":188,"n":1},{"g":"B","p":"CASH_LOAN_1","d":192,"n":1},{"g":"B","p":"CASH_LOAN_1","d":199,"n":3},{"g":"B","p":"CASH_LOAN_1","d":205,"n":1},{"g":"B","p":"CASH_LOAN_1","d":220,"n":2},{"g":"B","p":"CASH_LOAN_1","d":224,"n":1},{"g":"B","p":"CASH_LOAN_1","d":225,"n":1},{"g":"B","p":"CASH_LOAN_1","d":237,"n":1},{"g":"B","p":"CASH_LOAN_1","d":254,"n":1},{"g":"B","p":"CASH_LOAN_1","d":261,"n":1},{"g":"B","p":"CASH_LOAN_1","d":267,"n":1},{"g":"B","p":"CASH_LOAN_1","d":275,"n":1},{"g":"B","p":"CASH_LOAN_1","d":276,"n":1},{"g":"B","p":"CASH_LOAN_1","d":295,"n":1},{"g":"B","p":"CASH_LOAN_1","d":309,"n":1},{"g":"B","p":"CASH_LOAN_1","d":317,"n":1},{"g":"B","p":"CASH_LOAN_1","d":318,"n":1},{"g":"B","p":"CASH_LOAN_1","d":324,"n":1},{"g":"B","p":"CASH_LOAN_1","d":342,"n":1},{"g":"B","p":"CASH_LOAN_1","d":344,"n":1},{"g":"B","p":"CASH_LOAN_1","d":365,"n":1},{"g":"B","p":"CASH_LOAN_1","d":370,"n":1},{"g":"B","p":"CASH_LOAN_1","d":372,"n":1},{"g":"B","p":"CASH_LOAN_1","d":470,"n":1},{"g":"B","p":"CASH_LOAN_1","d":715,"n":1},{"g":"B","p":"CASH_LOAN_2","d":-26,"n":1},{"g":"B","p":"CASH_LOAN_2","d":-25,"n":1},{"g":"B","p":"CASH_LOAN_2","d":-18,"n":1},{"g":"B","p":"CASH_LOAN_2","d":-13,"n":1},{"g":"B","p":"CASH_LOAN_2","d":-11,"n":4},{"g":"B","p":"CASH_LOAN_2","d":-7,"n":4},{"g":"B","p":"CASH_LOAN_2","d":-6,"n":5},{"g":"B","p":"CASH_LOAN_2","d":-5,"n":2},{"g":"B","p":"CASH_LOAN_2","d":-1,"n":6},{"g":"B","p":"CASH_LOAN_2","d":0,"n":2},{"g":"B","p":"CASH_LOAN_2","d":2,"n":1},{"g":"B","p":"CASH_LOAN_2","d":3,"n":4},{"g":"B","p":"CASH_LOAN_2","d":7,"n":1},{"g":"B","p":"CASH_LOAN_2","d":10,"n":4},{"g":"B","p":"CASH_LOAN_2","d":14,"n":1},{"g":"B","p":"CASH_LOAN_2","d":17,"n":1},{"g":"B","p":"CASH_LOAN_2","d":23,"n":1},{"g":"B","p":"CASH_LOAN_2","d":24,"n":6},{"g":"B","p":"CASH_LOAN_2","d":31,"n":4},{"g":"B","p":"CASH_LOAN_2","d":38,"n":1},{"g":"B","p":"CASH_LOAN_2","d":42,"n":1},{"g":"B","p":"CASH_LOAN_2","d":52,"n":1},{"g":"B","p":"CASH_LOAN_2","d":55,"n":3},{"g":"B","p":"CASH_LOAN_2","d":56,"n":1},{"g":"B","p":"CASH_LOAN_2","d":59,"n":1},{"g":"B","p":"CASH_LOAN_2","d":62,"n":1},{"g":"B","p":"CASH_LOAN_2","d":64,"n":1},{"g":"B","p":"CASH_LOAN_2","d":66,"n":2},{"g":"B","p":"POS_LOAN","d":-15,"n":1},{"g":"B","p":"POS_LOAN","d":-11,"n":1},{"g":"B","p":"POS_LOAN","d":-7,"n":1},{"g":"B","p":"POS_LOAN","d":2,"n":1},{"g":"B","p":"POS_LOAN","d":14,"n":1},{"g":"B","p":"POS_LOAN","d":35,"n":1},{"g":"B","p":"POS_LOAN","d":55,"n":1},{"g":"B","p":"POS_LOAN","d":57,"n":1},{"g":"B","p":"POS_LOAN","d":59,"n":1},{"g":"B","p":"POS_LOAN","d":66,"n":1},{"g":"B","p":"POS_LOAN","d":73,"n":1},{"g":"B","p":"POS_LOAN","d":76,"n":1},{"g":"B","p":"POS_LOAN","d":79,"n":1},{"g":"B","p":"POS_LOAN","d":83,"n":1},{"g":"B","p":"POS_LOAN","d":84,"n":1},{"g":"B","p":"POS_LOAN","d":94,"n":2},{"g":"B","p":"POS_LOAN","d":108,"n":1},{"g":"B","p":"POS_LOAN","d":115,"n":1},{"g":"B","p":"POS_LOAN","d":142,"n":1},{"g":"B","p":"POS_LOAN","d":148,"n":1},{"g":"B","p":"POS_LOAN","d":157,"n":1},{"g":"B","p":"POS_LOAN","d":178,"n":1},{"g":"B","p":"POS_LOAN","d":182,"n":1},{"g":"B","p":"POS_LOAN","d":189,"n":1},{"g":"B","p":"POS_LOAN","d":191,"n":1},{"g":"B","p":"POS_LOAN","d":196,"n":1},{"g":"B","p":"POS_LOAN","d":346,"n":1},{"g":"B","p":"P_CURRENT","d":1,"n":1547},{"g":"B","p":"P_CURRENT","d":2,"n":3476},{"g":"B","p":"P_CURRENT","d":3,"n":7680},{"g":"B","p":"P_CURRENT","d":6,"n":2002},{"g":"B","p":"P_CURRENT","d":7,"n":1698},{"g":"B","p":"P_CURRENT","d":8,"n":1716},{"g":"B","p":"P_CURRENT","d":9,"n":1728},{"g":"B","p":"P_CURRENT","d":10,"n":4432},{"g":"B","p":"P_CURRENT","d":13,"n":1175},{"g":"B","p":"P_CURRENT","d":14,"n":1582},{"g":"B","p":"P_CURRENT","d":15,"n":1562},{"g":"B","p":"P_CURRENT","d":16,"n":1260},{"g":"B","p":"P_CURRENT","d":17,"n":3895},{"g":"B","p":"P_CURRENT","d":20,"n":1336},{"g":"B","p":"P_CURRENT","d":21,"n":1063},{"g":"B","p":"P_CURRENT","d":22,"n":646},{"g":"B","p":"P_CURRENT","d":23,"n":840},{"g":"B","p":"P_CURRENT","d":24,"n":2373},{"g":"B","p":"P_CURRENT","d":30,"n":715},{"g":"B","p":"P_CURRENT","d":31,"n":2218},{"g":"B","p":"P_CURRENT","d":34,"n":626},{"g":"B","p":"P_CURRENT","d":35,"n":650},{"g":"B","p":"P_CURRENT","d":36,"n":719},{"g":"B","p":"P_CURRENT","d":37,"n":642},{"g":"B","p":"P_CURRENT","d":38,"n":2041},{"g":"B","p":"P_CURRENT","d":41,"n":642},{"g":"B","p":"P_CURRENT","d":42,"n":559},{"g":"B","p":"P_CURRENT","d":43,"n":613},{"g":"B","p":"P_CURRENT","d":44,"n":645},{"g":"B","p":"P_CURRENT","d":45,"n":2526},{"g":"B","p":"P_CURRENT","d":48,"n":646},{"g":"B","p":"P_CURRENT","d":49,"n":609},{"g":"B","p":"P_CURRENT","d":50,"n":878},{"g":"B","p":"P_CURRENT","d":51,"n":867},{"g":"B","p":"P_CURRENT","d":52,"n":1815},{"g":"B","p":"P_CURRENT","d":55,"n":572},{"g":"B","p":"P_CURRENT","d":56,"n":580},{"g":"B","p":"P_CURRENT","d":57,"n":538},{"g":"B","p":"P_CURRENT","d":59,"n":1102},{"g":"B","p":"P_CURRENT","d":62,"n":526},{"g":"B","p":"P_CURRENT","d":63,"n":472},{"g":"B","p":"P_CURRENT","d":64,"n":568},{"g":"B","p":"P_CURRENT","d":65,"n":575},{"g":"B","p":"P_CURRENT","d":66,"n":1684},{"g":"B","p":"P_CURRENT","d":69,"n":505},{"g":"B","p":"P_CURRENT","d":70,"n":484},{"g":"B","p":"P_CURRENT","d":71,"n":660},{"g":"B","p":"P_CURRENT","d":72,"n":426},{"g":"B","p":"P_CURRENT","d":73,"n":1791},{"g":"B","p":"P_CURRENT","d":76,"n":682},{"g":"B","p":"P_CURRENT","d":77,"n":545},{"g":"B","p":"P_CURRENT","d":78,"n":581},{"g":"B","p":"P_CURRENT","d":79,"n":595},{"g":"B","p":"P_CURRENT","d":80,"n":2055},{"g":"B","p":"P_CURRENT","d":83,"n":559},{"g":"B","p":"P_CURRENT","d":84,"n":447},{"g":"B","p":"P_CURRENT","d":85,"n":464},{"g":"B","p":"P_CURRENT","d":86,"n":416},{"g":"B","p":"P_CURRENT","d":87,"n":495}],"colors":["#3b82f6","#a78bfa"]};
+  var BUCKETS = ["1: <=0","2: 1-7","3: 8-15","4: 16-30","5: 31-60","6: 61-90",
+                 "7: 91+","8: n/a"];
+  var elProd = document.getElementById('dp-product');
+  var elGran = document.getElementById('dp-gran');
+  var elMetric = document.getElementById('dp-metric');
+  var elChart = document.getElementById('dp-chart');
+  var elStat = document.getElementById('dp-stat');
+  var elLegend = document.getElementById('dp-legend');
+  if (!elChart) return;
+
+  var colorOf = {};
+  DATA.groups.forEach(function (g, i) {
+    colorOf[g] = DATA.colors[i % DATA.colors.length];
+  });
+  elLegend.innerHTML = DATA.groups.map(function (g) {
+    return '<span style="display:inline-flex;align-items:center;gap:0.3rem;'
+      + 'margin-right:0.75rem"><span style="width:10px;height:10px;border-radius:2px;'
+      + 'background:' + colorOf[g] + ';display:inline-block"></span>' + g + '</span>';
+  }).join('');
+
+  function bucketOf(d) {
+    if (d === null) return "8: n/a";
+    if (d <= 0) return "1: <=0";
+    if (d <= 7) return "2: 1-7";
+    if (d <= 15) return "3: 8-15";
+    if (d <= 30) return "4: 16-30";
+    if (d <= 60) return "5: 31-60";
+    if (d <= 90) return "6: 61-90";
+    return "7: 91+";
+  }
+
+  function aggregate(product, gran) {
+    // key -> {group: count}; also group totals for the share metric.
+    var cats = {}, totals = {}, order = [];
+    DATA.rows.forEach(function (r) {
+      if (product !== '__ALL__' && r.p !== product) return;
+      var key = gran === 'raw' ? (r.d === null ? 'n/a' : String(r.d)) : bucketOf(r.d);
+      if (!(key in cats)) { cats[key] = {}; order.push(key); }
+      cats[key][r.g] = (cats[key][r.g] || 0) + r.n;
+      totals[r.g] = (totals[r.g] || 0) + r.n;
+    });
+    if (gran === 'raw') {
+      order.sort(function (a, b) {
+        if (a === 'n/a') return 1;
+        if (b === 'n/a') return -1;
+        return (+a) - (+b);
+      });
+    } else {
+      order = BUCKETS.filter(function (b) { return b in cats; });
+    }
+    return {cats: cats, order: order, totals: totals};
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+  }
+
+  function fmt(n) { return n.toLocaleString('en-US'); }
+
+  function render() {
+    var product = elProd.value, gran = elGran.value, metric = elMetric.value;
+    var agg = aggregate(product, gran);
+    var order = agg.order, cats = agg.cats, totals = agg.totals;
+    var groups = DATA.groups.filter(function (g) { return totals[g]; });
+
+    if (!order.length || !groups.length) {
+      elChart.innerHTML = '<p class="muted">No clients in this slice.</p>';
+      elStat.textContent = '';
+      return;
+    }
+
+    var W = 1040, H = 380, ml = 62, mr = 12, mt = 14, mb = 52;
+    var pw = W - ml - mr, ph = H - mt - mb;
+
+    function val(key, g) {
+      var v = (cats[key] || {})[g] || 0;
+      return metric === 'share' ? (totals[g] ? v / totals[g] * 100 : 0) : v;
+    }
+
+    var maxV = 0;
+    order.forEach(function (k) {
+      groups.forEach(function (g) { maxV = Math.max(maxV, val(k, g)); });
+    });
+    if (maxV <= 0) maxV = 1;
+    // Axis step: the smallest 1/2/2.5/5-decade value that keeps ~5 ticks.
+    var raw = maxV / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = mag * 10;
+    [1, 2, 2.5, 5, 10].some(function (m) {
+      if (raw <= mag * m) { step = mag * m; return true; }
+      return false;
+    });
+    var top = Math.ceil(maxV / step) * step;
+    var dec = step >= 1 ? 0 : (step >= 0.1 ? 2 : 3);
+
+    var slot = pw / order.length;
+    var barGap = Math.min(2, slot * 0.06);
+    var barW = Math.max(1, (slot * 0.78 - barGap * (groups.length - 1)) / groups.length);
+
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" '
+          + 'aria-label="DPD distribution by group">';
+
+    // y grid + labels
+    var nTicks = Math.round(top / step);
+    for (var i = 0; i <= nTicks; i++) {
+      var v = step * i, y = mt + ph - (v / top) * ph;
+      s += '<line x1="' + ml + '" y1="' + y + '" x2="' + (W - mr) + '" y2="' + y
+         + '" stroke="#334155" stroke-width="1" opacity="' + (i ? 0.5 : 1) + '"/>';
+      var lbl = metric === 'share' ? v.toFixed(dec) + '%' : fmt(Math.round(v));
+      s += '<text x="' + (ml - 8) + '" y="' + (y + 4) + '" text-anchor="end" '
+         + 'font-size="11" fill="#94a3b8">' + lbl + '</text>';
+    }
+
+    // bars
+    var labelEvery = Math.ceil(order.length / 34);
+    order.forEach(function (key, ci) {
+      var x0 = ml + ci * slot + (slot * 0.11);
+      groups.forEach(function (g, gi) {
+        var v = val(key, g);
+        var h = (v / top) * ph;
+        var x = x0 + gi * (barW + barGap);
+        var y = mt + ph - h;
+        var raw = (cats[key] || {})[g] || 0;
+        var tip = key + ' · ' + g + ': ' + fmt(raw) + ' clients'
+                + (totals[g] ? ' (' + (raw / totals[g] * 100).toFixed(2) + '% of ' + g + ')' : '');
+        s += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="'
+           + barW.toFixed(1) + '" height="' + Math.max(0, h).toFixed(1)
+           + '" fill="' + colorOf[g] + '" rx="1"><title>' + esc(tip)
+           + '</title></rect>';
+      });
+      if (ci % labelEvery === 0) {
+        var lx = ml + ci * slot + slot / 2;
+        var txt = gran === 'bucket' ? key.replace(/^\d+:\s*/, '') : key;
+        s += '<text x="' + lx.toFixed(1) + '" y="' + (mt + ph + 16)
+           + '" text-anchor="middle" font-size="11" fill="#94a3b8">'
+           + esc(txt) + '</text>';
+      }
+    });
+
+    // axes
+    s += '<line x1="' + ml + '" y1="' + (mt + ph) + '" x2="' + (W - mr) + '" y2="'
+       + (mt + ph) + '" stroke="#475569" stroke-width="1"/>';
+    s += '<text x="' + (ml + pw / 2) + '" y="' + (H - 12) + '" text-anchor="middle" '
+       + 'font-size="11" fill="#94a3b8">dpd_start_day'
+       + (gran === 'bucket' ? ' (bucket)' : '') + '</text>';
+    s += '</svg>';
+
+    elChart.innerHTML = s;
+
+    var parts = groups.map(function (g) { return g + ': ' + fmt(totals[g]); });
+    var grand = groups.reduce(function (a, g) { return a + totals[g]; }, 0);
+    elStat.textContent = (product === '__ALL__' ? 'All products' : product)
+      + ' — ' + fmt(grand) + ' clients (' + parts.join(' · ') + '), '
+      + order.length + (gran === 'bucket' ? ' buckets' : ' distinct DPD values')
+      + '. Hover a bar for exact counts.';
+  }
+
+  [elProd, elGran, elMetric].forEach(function (el) {
+    el.addEventListener('change', render);
+  });
+  render();
+})();
+</script>
+
 
 <div class="footer">
     Generated on 2026-08-27 &middot; segmentation_qa.py &middot; Collection Analytics
