@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segmentation QA — second_number_2026_08_27_live_experiment</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --accent: #3b82f6;
+        --green: #22c55e;
+        --red: #ef4444;
+        --yellow: #eab308;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg); color: var(--text); line-height: 1.5; padding: 2rem;
+    }
+    .header {
+        max-width: 1100px; margin: 0 auto 2rem; text-align: center;
+    }
+    .header h1 {
+        font-size: 1.75rem; font-weight: 700;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .header .sub { color: var(--text-muted); font-size: 0.9rem; }
+    .card {
+        max-width: 1100px; margin: 1.25rem auto;
+        background: var(--card-bg); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1.25rem 1.5rem; overflow-x: auto;
+    }
+    .card h2 {
+        font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .kpi-row { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .kpi {
+        background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+        padding: 0.75rem 1.25rem; text-align: center; min-width: 120px;
+    }
+    .kpi-val { display: block; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .kpi-label { display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead th {
+        text-align: left; padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid var(--border); color: var(--text-muted);
+        font-weight: 500; font-size: 0.8rem; white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid rgba(51,65,85,0.5); }
+    tbody tr:last-child { border-bottom: none; }
+    td { padding: 0.4rem 0.75rem; white-space: nowrap; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .muted { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .badge {
+        display: inline-block; padding: 2px 8px; border-radius: 4px;
+        font-size: 0.75rem; font-weight: 600;
+    }
+    .badge-ok { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-warn { background: rgba(234,179,8,0.15); color: #facc15; }
+    .sig-fail { background: rgba(239,68,68,0.07); }
+    .bar-bg {
+        display: inline-block; width: 120px; height: 10px;
+        background: var(--border); border-radius: 5px; vertical-align: middle;
+    }
+    .bar-fill { height: 100%; border-radius: 5px; }
+    .bar-label { font-size: 0.8rem; margin-left: 0.4rem; color: var(--text-muted); }
+    .footer {
+        max-width: 1100px; margin: 2rem auto 0; text-align: center;
+        color: var(--text-muted); font-size: 0.75rem;
+    }
+    @media (max-width: 768px) {
+        body { padding: 1rem; }
+        .kpi-row { gap: 0.75rem; }
+        .kpi { min-width: 90px; padding: 0.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Segmentation QA</h1>
+    <p class="sub">second_number_2026_08_27_live_experiment &mdash; 2026-08-26</p>
+</div>
+
+
+    <div class="card">
+        <h2>CSP Object Check</h2>
+        <p class="muted">Test vs prod objects in CSP are told apart by
+        EXPERIMENTS.MODE (OBSERVATION = dry run, LIVE = real rollout)</p>
+        <table>
+            <thead><tr><th>Verdict</th><th>Mode</th><th>Status</th>
+            <th class="num">Assignments</th><th>Intake window</th><th>Note</th></tr></thead>
+            <tbody><tr><td><b style='color:#b35309'>NOT STARTED</b></td><td>LIVE</td><td>SCHEDULED</td><td class='num'>0</td><td>2026-08-27 &ndash; 2026-08-28</td><td class='muted'>scheduled, intake has not begun</td></tr>
+</tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Detected Filters</h2>
+        <p class="muted">Auto-detected from test population, applied to eligible population query</p>
+        <div class="kpi-row">
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">N/A</span><span class="kpi-label">dpd_start_day</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">N/A</span><span class="kpi-label">account_type</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">N/A</span><span class="kpi-label">credit_limit</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">ff_flg</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">death_flg</span></div>
+            
+            
+        </div>
+        
+    </div>
+<div class="card"><h2>1. Test Overview</h2><p class="muted">No data found.</p></div>
+
+        <div class="card">
+            <h2>2. Test Overlaps <span class="badge badge-ok">No overlaps</span></h2>
+            <p class="muted">No overlaps with other active tests detected.</p>
+        </div>
+<div class="card"><h2>3. Daily Coverage</h2><p class="muted">No data.</p></div>
+<div class="card"><h2>4. Uniformity</h2><p class="muted">Not enough data.</p></div>
+
+        <div class="card">
+            <h2>5. Call Strategy Distribution</h2>
+            <p class="muted">event_code from dwh_collection_prod.dbt.dm_calls_event_cli joined by client_id. Two aggregations:
+            strategy on each client's segmentation date, and on the last available day
+            (strategies are re-assigned daily, so the two can differ).</p>
+            <h3 style='font-size:1rem;margin:1rem 0 0.3rem'>On segmentation date</h3><p class='muted'>No call strategies found for test clients on this day.</p><h3 style='font-size:1rem;margin:1rem 0 0.3rem'>On last available day (2026-08-26)</h3><p class='muted'>No call strategies found for test clients on this day.</p>
+        </div>
+
+<div class="footer">
+    Generated on 2026-08-26 &middot; segmentation_qa.py &middot; Collection Analytics
+</div>
+</body>
+</html>
