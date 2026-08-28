@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Segmentation QA — second_number_2026_08_28_live_experiment</title>
+<style>
+    :root {
+        --bg: #0f172a;
+        --card-bg: #1e293b;
+        --text: #e2e8f0;
+        --text-muted: #94a3b8;
+        --border: #334155;
+        --accent: #3b82f6;
+        --green: #22c55e;
+        --red: #ef4444;
+        --yellow: #eab308;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        background: var(--bg); color: var(--text); line-height: 1.5; padding: 2rem;
+    }
+    .header {
+        max-width: 1100px; margin: 0 auto 2rem; text-align: center;
+    }
+    .header h1 {
+        font-size: 1.75rem; font-weight: 700;
+        background: linear-gradient(135deg, #60a5fa, #a78bfa);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .header .sub { color: var(--text-muted); font-size: 0.9rem; }
+    .card {
+        max-width: 1100px; margin: 1.25rem auto;
+        background: var(--card-bg); border: 1px solid var(--border);
+        border-radius: 12px; padding: 1.25rem 1.5rem; overflow-x: auto;
+    }
+    .card h2 {
+        font-size: 1.1rem; font-weight: 600; margin-bottom: 0.75rem;
+        display: flex; align-items: center; gap: 0.5rem;
+    }
+    .kpi-row { display: flex; gap: 1.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .kpi {
+        background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+        padding: 0.75rem 1.25rem; text-align: center; min-width: 120px;
+    }
+    .kpi-val { display: block; font-size: 1.3rem; font-weight: 700; color: var(--accent); }
+    .kpi-label { display: block; font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; }
+    table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    thead th {
+        text-align: left; padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid var(--border); color: var(--text-muted);
+        font-weight: 500; font-size: 0.8rem; white-space: nowrap;
+    }
+    tbody tr { border-bottom: 1px solid rgba(51,65,85,0.5); }
+    tbody tr:last-child { border-bottom: none; }
+    td { padding: 0.4rem 0.75rem; white-space: nowrap; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .muted { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .badge {
+        display: inline-block; padding: 2px 8px; border-radius: 4px;
+        font-size: 0.75rem; font-weight: 600;
+    }
+    .badge-ok { background: rgba(34,197,94,0.15); color: #4ade80; }
+    .badge-warn { background: rgba(234,179,8,0.15); color: #facc15; }
+    .sig-fail { background: rgba(239,68,68,0.07); }
+    .bar-bg {
+        display: inline-block; width: 120px; height: 10px;
+        background: var(--border); border-radius: 5px; vertical-align: middle;
+    }
+    .bar-fill { height: 100%; border-radius: 5px; }
+    .ctl-row {
+        display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap;
+        margin: 0.5rem 0 0.75rem; font-size: 0.8rem; color: var(--text-muted);
+    }
+    .ctl-row label { display: flex; align-items: center; gap: 0.4rem; }
+    .ctl-row select {
+        background: var(--bg); color: var(--text); border: 1px solid var(--border);
+        border-radius: 6px; padding: 0.3rem 0.5rem; font-size: 0.8rem;
+    }
+    .chart-wrap { width: 100%; overflow-x: auto; }
+    .chart-wrap svg { display: block; width: 100%; height: auto; }
+    .dp-stat { font-size: 0.8rem; color: var(--text-muted); margin-top: 0.4rem; }
+    .bar-label { font-size: 0.8rem; margin-left: 0.4rem; color: var(--text-muted); }
+    .footer {
+        max-width: 1100px; margin: 2rem auto 0; text-align: center;
+        color: var(--text-muted); font-size: 0.75rem;
+    }
+    @media (max-width: 768px) {
+        body { padding: 1rem; }
+        .kpi-row { gap: 0.75rem; }
+        .kpi { min-width: 90px; padding: 0.5rem; }
+    }
+</style>
+</head>
+<body>
+<div class="header">
+    <h1>Segmentation QA</h1>
+    <p class="sub">second_number_2026_08_28_live_experiment &mdash; 2026-08-28</p>
+</div>
+
+
+    <div class="card">
+        <h2>CSP Object Check</h2>
+        <p class="muted">Test vs prod objects in CSP are told apart by
+        EXPERIMENTS.MODE (OBSERVATION = dry run, LIVE = real rollout)</p>
+        <table>
+            <thead><tr><th>Verdict</th><th>Mode</th><th>Status</th>
+            <th class="num">Assignments</th><th>Intake window</th><th>Note</th></tr></thead>
+            <tbody><tr><td><b style='color:#1a7f37'>PROD</b></td><td>LIVE</td><td>RUNNING</td><td class='num'>154,608</td><td>2026-08-28 &ndash; 2026-08-29</td><td class='muted'>live experiment, real effect on users</td></tr>
+</tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Detected Filters</h2>
+        <p class="muted">Auto-detected from test population, applied to eligible population query</p>
+        <div class="kpi-row">
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">1, 2, 3, 4, 7, 8, 9, 10, 11, 14, 15, 16, 17, 18, 21, 22, 23, 24, 25, 31, 32, 35, 36, 37, 38, 39, 42, 43, 44, 45, 46, 49, 50, 51, 52, 53, 56, 57, 58, 60, 63, 64, 65, 66, 67, 70, 71, 72, 73, 74, 77, 78, 79, 80, 81, 84, 85, 86, 87, 88</span><span class="kpi-label">dpd_start_day</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">P_CURRENT</span><span class="kpi-label">account_type</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">>= 1000</span><span class="kpi-label">credit_limit</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">ff_flg</span></div>
+            <div class="kpi"><span class="kpi-val" style="font-size:1rem">0</span><span class="kpi-label">death_flg</span></div>
+            
+            
+        </div>
+        
+    </div>
+
+        <div class="card">
+            <h2>1. Test Overview</h2>
+            <div class="kpi-row">
+                <div class="kpi"><span class="kpi-val">2</span><span class="kpi-label">Groups</span></div>
+                <div class="kpi"><span class="kpi-val">2026-08-28</span><span class="kpi-label">Start</span></div>
+                <div class="kpi"><span class="kpi-val">2026-08-28</span><span class="kpi-label">End</span></div>
+                <div class="kpi"><span class="kpi-val">154,608</span><span class="kpi-label">Unique accounts</span></div>
+                
+                <div class="kpi"><span class="kpi-val">49.9%</span><span class="kpi-label">group A share<br>77,197</span></div><div class="kpi"><span class="kpi-val">50.1%</span><span class="kpi-label">group B share<br>77,411</span></div>
+            </div>
+            <p class="muted">Design split (actual): <b>A 49.9% &middot; B 50.1%</b> &mdash; compare with the intended split. This split is the baseline for the uniformity check (§4).</p>
+            
+            <table><thead><tr><th>Date</th><th>Group</th><th>Accounts</th><th>Share</th></tr></thead>
+            <tbody><tr><td>2026-08-28</td><td>A</td><td class='num'>77,197</td><td class='num'>49.9%</td></tr>
+<tr><td>2026-08-28</td><td>B</td><td class='num'>77,411</td><td class='num'>50.1%</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>2. Test Overlaps <span class="badge badge-warn">52 overlap(s)</span></h2>
+            <table><thead><tr><th>Our Group</th><th>Overlapped Test</th><th>Their Group</th><th>Shared Accounts</th></tr></thead>
+            <tbody><tr><td>A</td><td>VMD_Tech_24_08</td><td>A</td><td class='num'>8,817</td></tr>
+<tr><td>A</td><td>VMD_Tech_24_08</td><td>B</td><td class='num'>8,806</td></tr>
+<tr><td>A</td><td>agency_0001</td><td>A</td><td class='num'>43,410</td></tr>
+<tr><td>A</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>A</td><td class='num'>29,713</td></tr>
+<tr><td>A</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>B</td><td class='num'>872</td></tr>
+<tr><td>A</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>N</td><td class='num'>2,217</td></tr>
+<tr><td>A</td><td>agency_91dpd_rotation_2025_08</td><td>B</td><td class='num'>3</td></tr>
+<tr><td>A</td><td>change_msg_credit_widget_main_2026_08_14_live_experiment</td><td>A</td><td class='num'>9,551</td></tr>
+<tr><td>A</td><td>change_msg_credit_widget_main_2026_08_14_live_experiment</td><td>B</td><td class='num'>9,697</td></tr>
+<tr><td>A</td><td>kobra_31dpd_fv_v4_2026_07</td><td>A</td><td class='num'>526</td></tr>
+<tr><td>A</td><td>kobra_31dpd_fv_v4_2026_07</td><td>K</td><td class='num'>485</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>A</td><td class='num'>491</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>B</td><td class='num'>507</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>C</td><td class='num'>515</td></tr>
+<tr><td>A</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>D</td><td class='num'>518</td></tr>
+<tr><td>A</td><td>restruct_1call_CCR_2024_08</td><td>B</td><td class='num'>1</td></tr>
+<tr><td>A</td><td>riskdev_17569_sim_global_2026_08_12_live</td><td>A</td><td class='num'>38,457</td></tr>
+<tr><td>A</td><td>riskdev_17569_sim_global_2026_08_12_live</td><td>B</td><td class='num'>38,740</td></tr>
+<tr><td>A</td><td>second_number_2026_08_27_live_experiment</td><td>A</td><td class='num'>34,831</td></tr>
+<tr><td>A</td><td>second_number_2026_08_27_live_experiment</td><td>B</td><td class='num'>34,947</td></tr>
+<tr><td>A</td><td>sim_blocking_no_statement_shift_2026_08_19_live_experiment</td><td>A</td><td class='num'>1,224</td></tr>
+<tr><td>A</td><td>sim_blocking_statement_shift_2026_08_19_live_experiment</td><td>A</td><td class='num'>1,160</td></tr>
+<tr><td>A</td><td>test_emulate_triage_wa</td><td>A</td><td class='num'>3,801</td></tr>
+<tr><td>A</td><td>test_emulate_triage_wa</td><td>B</td><td class='num'>3,894</td></tr>
+<tr><td>A</td><td>wa_non_contact_3_30_DPD_2026_08</td><td>A</td><td class='num'>116</td></tr>
+<tr><td>A</td><td>wa_non_contact_3_30_DPD_2026_08</td><td>B</td><td class='num'>84</td></tr>
+<tr><td>B</td><td>VMD_Tech_24_08</td><td>A</td><td class='num'>8,709</td></tr>
+<tr><td>B</td><td>VMD_Tech_24_08</td><td>B</td><td class='num'>8,714</td></tr>
+<tr><td>B</td><td>agency_0001</td><td>A</td><td class='num'>43,549</td></tr>
+<tr><td>B</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>A</td><td class='num'>29,589</td></tr>
+<tr><td>B</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>B</td><td class='num'>901</td></tr>
+<tr><td>B</td><td>agency_31dpd_61dpd_rotation_2025_09</td><td>N</td><td class='num'>2,370</td></tr>
+<tr><td>B</td><td>agency_91dpd_rotation_2025_08</td><td>N</td><td class='num'>1</td></tr>
+<tr><td>B</td><td>change_msg_credit_widget_main_2026_08_14_live_experiment</td><td>A</td><td class='num'>9,530</td></tr>
+<tr><td>B</td><td>change_msg_credit_widget_main_2026_08_14_live_experiment</td><td>B</td><td class='num'>9,550</td></tr>
+<tr><td>B</td><td>kobra_31dpd_fv_v4_2026_07</td><td>A</td><td class='num'>517</td></tr>
+<tr><td>B</td><td>kobra_31dpd_fv_v4_2026_07</td><td>K</td><td class='num'>522</td></tr>
+<tr><td>B</td><td>legal_late_2025_08</td><td>B</td><td class='num'>1</td></tr>
+<tr><td>B</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>A</td><td class='num'>519</td></tr>
+<tr><td>B</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>B</td><td class='num'>516</td></tr>
+<tr><td>B</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>C</td><td class='num'>477</td></tr>
+<tr><td>B</td><td>notif_off_for_-6_dpd_2026_08_07_live_experiment</td><td>D</td><td class='num'>485</td></tr>
+<tr><td>B</td><td>riskdev_17569_sim_global_2026_08_12_live</td><td>A</td><td class='num'>38,612</td></tr>
+<tr><td>B</td><td>riskdev_17569_sim_global_2026_08_12_live</td><td>B</td><td class='num'>38,799</td></tr>
+<tr><td>B</td><td>second_number_2026_08_27_live_experiment</td><td>A</td><td class='num'>35,252</td></tr>
+<tr><td>B</td><td>second_number_2026_08_27_live_experiment</td><td>B</td><td class='num'>34,778</td></tr>
+<tr><td>B</td><td>sim_blocking_no_statement_shift_2026_08_19_live_experiment</td><td>A</td><td class='num'>1,224</td></tr>
+<tr><td>B</td><td>sim_blocking_statement_shift_2026_08_19_live_experiment</td><td>A</td><td class='num'>1,228</td></tr>
+<tr><td>B</td><td>test_emulate_triage_wa</td><td>A</td><td class='num'>3,802</td></tr>
+<tr><td>B</td><td>test_emulate_triage_wa</td><td>B</td><td class='num'>3,833</td></tr>
+<tr><td>B</td><td>wa_non_contact_3_30_DPD_2026_08</td><td>A</td><td class='num'>92</td></tr>
+<tr><td>B</td><td>wa_non_contact_3_30_DPD_2026_08</td><td>B</td><td class='num'>102</td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>3. Daily Segmentation Coverage</h2>
+            <table><thead><tr><th>Date</th><th>Eligible</th><th>Segmented</th><th>Missing</th><th>Coverage</th></tr></thead>
+            <tbody><tr><td>2026-08-28</td><td class='num'>329,971</td><td class='num'>308,131</td><td class='num'>21,840</td><td><div class='bar-bg'><div class='bar-fill' style='width:93.4%;background:#22c55e'></div></div><span class='bar-label'>93.4%</span></td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>4. Distribution Uniformity <span class="badge badge-ok">All OK</span></h2>
+            <p class="muted">counts: alpha = 0.05 &middot; Design split (baseline): <b>A=77,197 (49.9%) | B=77,411 (50.1%)</b>. Counts are tested for consistency with this split (Chi-square goodness-of-fit), not against an equal 50:50 split, so an intentional non-equal split is not flagged. Balance is judged by SMD (Cohen's d): flagged (red) only if |SMD| &gt; 0.2; 0.1&ndash;0.2 is minor and treated as OK. The p-value is bootstrapped on the mean difference and is informational only &mdash; it does not drive the verdict (at this n any test is over-powered).</p>
+            <table><thead><tr><th>Slice</th><th>Metric</th><th>Comparison</th><th>Test</th><th>Details</th><th>SMD</th><th>p-value</th><th>Sig</th></tr></thead>
+            <tbody><tr class=''><td>TOTAL</td><td>client_count</td><td>A vs B</td><td>baseline (design split)</td><td>A=77,197 (49.9%) | B=77,411 (50.1%)</td><td class='num'>&mdash;</td><td class='num'>nan</td><td></td></tr>
+<tr class=''><td>TOTAL</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+6 [95% CI -80,+90]; ctrl=6181 test=6187</td><td class='num'>+0.001</td><td class='num'>0.9212</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=53,738 (50.0%) | B=53,761 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.7012</td><td></td></tr>
+<tr class=''><td>1: [0-4K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+9 [95% CI -8,+26]; ctrl=2466 test=2475</td><td class='num'>+0.007</td><td class='num'>0.2792</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,037 (50.0%) | B=12,050 (50.0%)</td><td class='num'>&mdash;</td><td class='num'>0.8957</td><td></td></tr>
+<tr class=''><td>2: [4K-10K)</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-14 [95% CI -87,+57]; ctrl=7957 test=7943</td><td class='num'>-0.005</td><td class='num'>0.6888</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=11,422 (49.6%) | B=11,600 (50.4%)</td><td class='num'>&mdash;</td><td class='num'>0.3355</td><td></td></tr>
+<tr class=''><td>3: [10K+]</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-222 [95% CI -557,+109]; ctrl=21791 test=21569</td><td class='num'>-0.017</td><td class='num'>0.1964</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=19,420 (50.4%) | B=19,111 (49.6%)</td><td class='num'>&mdash;</td><td class='num'>0.0649</td><td></td></tr>
+<tr class=''><td>DPD 1-7</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-25 [95% CI -173,+118]; ctrl=5134 test=5109</td><td class='num'>-0.003</td><td class='num'>0.7452</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=11,470 (49.4%) | B=11,756 (50.6%)</td><td class='num'>&mdash;</td><td class='num'>0.0958</td><td></td></tr>
+<tr class=''><td>DPD 8-15</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+220 [95% CI +10,+421]; ctrl=5297 test=5517</td><td class='num'>+0.028</td><td class='num'>0.0404</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=12,520 (49.7%) | B=12,683 (50.3%)</td><td class='num'>&mdash;</td><td class='num'>0.4197</td><td></td></tr>
+<tr class=''><td>DPD 16-30</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=+137 [95% CI -60,+330]; ctrl=5634 test=5771</td><td class='num'>+0.017</td><td class='num'>0.1700</td><td></td></tr>
+<tr class=''><td>DPD 31-60</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=19,619 (50.1%) | B=19,509 (49.9%)</td><td class='num'>&mdash;</td><td class='num'>0.4066</td><td></td></tr>
+<tr class=''><td>DPD 31-60</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-131 [95% CI -309,+52]; ctrl=6837 test=6705</td><td class='num'>-0.014</td><td class='num'>0.1616</td><td></td></tr>
+<tr class=''><td>DPD 61-90</td><td>client_count</td><td>A vs B</td><td>Chi-square GoF vs design</td><td>A=14,168 (49.7%) | B=14,352 (50.3%)</td><td class='num'>&mdash;</td><td class='num'>0.3921</td><td></td></tr>
+<tr class=''><td>DPD 61-90</td><td>total_debt</td><td>A vs B</td><td>Bootstrap mean-diff</td><td>balanced; meanΔ=-72 [95% CI -305,+158]; ctrl=7908 test=7835</td><td class='num'>-0.007</td><td class='num'>0.5308</td><td></td></tr>
+</tbody></table>
+        </div>
+
+        <div class="card">
+            <h2>5. Call Strategy Distribution</h2>
+            <p class="muted">event_code from dwh_collection_prod.dbt.dm_calls_event_cli joined by client_id. Two aggregations:
+            strategy on each client's segmentation date, and on the last available day
+            (strategies are re-assigned daily, so the two can differ).</p>
+            
+            <div class="strat-block">
+                <h3 style="font-size:1rem;margin:1.2rem 0 0.3rem">On segmentation date <span class="badge badge-ok">Balanced</span></h3>
+                <p class="muted">Chi-square (independence): chi2=11.2108, dof=7, p-value=0.1297 (alpha=0.05) &middot; 8 strategies, 0 rare merged into (other)</p>
+                <div class="kpi-row"><div class="kpi"><span class="kpi-val">94.4%</span><span class="kpi-label">group A coverage<br>72,894/77,197</span></div><div class="kpi"><span class="kpi-val">94.2%</span><span class="kpi-label">group B coverage<br>72,922/77,411</span></div></div>
+                
+                <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>&Delta;pp (B&minus;A) [95% CI]</th></tr></thead><tbody><tr class='sig-fail'><td>Customer_3rd_base_MPC</td><td class='num'>44,292</td><td class='num'>21,968</td><td class='num'>30.1%</td><td class='num'>22,324</td><td class='num'>30.6%</td><td class='num'>+0.5 [+0.0, +0.9] <span class="badge badge-warn">sig</span></td></tr>
+<tr><td>default</td><td class='num'>33,669</td><td class='num'>16,986</td><td class='num'>23.3%</td><td class='num'>16,683</td><td class='num'>22.9%</td><td class='num'>-0.4 [-0.9, +0.0]</td></tr>
+<tr><td>collection_all_products_3rd_base_61_90</td><td class='num'>23,933</td><td class='num'>11,934</td><td class='num'>16.4%</td><td class='num'>11,999</td><td class='num'>16.5%</td><td class='num'>+0.1 [-0.3, +0.5]</td></tr>
+<tr><td>collection_all_products_3rd_base_31_60_vmd_tech_control</td><td class='num'>17,140</td><td class='num'>8,623</td><td class='num'>11.8%</td><td class='num'>8,517</td><td class='num'>11.7%</td><td class='num'>-0.1 [-0.5, +0.2]</td></tr>
+<tr><td>collection_all_products_3rd_base_31_60_vmd_tech_test</td><td class='num'>17,100</td><td class='num'>8,609</td><td class='num'>11.8%</td><td class='num'>8,491</td><td class='num'>11.6%</td><td class='num'>-0.2 [-0.5, +0.2]</td></tr>
+<tr><td>broken_ptp_cc</td><td class='num'>4,207</td><td class='num'>2,098</td><td class='num'>2.9%</td><td class='num'>2,109</td><td class='num'>2.9%</td><td class='num'>+0.0 [-0.2, +0.2]</td></tr>
+<tr class='sig-fail'><td>last_day_PTP_reminder_cc</td><td class='num'>3,534</td><td class='num'>1,708</td><td class='num'>2.3%</td><td class='num'>1,826</td><td class='num'>2.5%</td><td class='num'>+0.2 [+0.0, +0.3] <span class="badge badge-warn">sig</span></td></tr>
+<tr><td>collection_all_products_3rd_base_31_60</td><td class='num'>1,941</td><td class='num'>968</td><td class='num'>1.3%</td><td class='num'>973</td><td class='num'>1.3%</td><td class='num'>+0.0 [-0.1, +0.1]</td></tr>
+</tbody></table><p class='muted' style='margin-top:0.4rem'>&Delta;pp = share gap (group B &minus; group A) with a 95% CI on the difference of proportions. A CI that excludes 0 (flagged <b>sig</b>) means the skew is significant for that strategy; a CI spanning 0 means the gap is within sampling noise.</p>
+                
+            </div>
+            <div class="strat-block">
+                <h3 style="font-size:1rem;margin:1.2rem 0 0.3rem">On last available day (2026-08-28) <span class="badge badge-ok">Balanced</span></h3>
+                <p class="muted">Chi-square (independence): chi2=11.2108, dof=7, p-value=0.1297 (alpha=0.05) &middot; 8 strategies, 0 rare merged into (other)</p>
+                <div class="kpi-row"><div class="kpi"><span class="kpi-val">94.4%</span><span class="kpi-label">group A coverage<br>72,894/77,197</span></div><div class="kpi"><span class="kpi-val">94.2%</span><span class="kpi-label">group B coverage<br>72,922/77,411</span></div></div>
+                
+                <table><thead><tr><th>Strategy</th><th>Total</th><th>grp A (n)</th><th>grp A (%)</th><th>grp B (n)</th><th>grp B (%)</th><th>&Delta;pp (B&minus;A) [95% CI]</th></tr></thead><tbody><tr class='sig-fail'><td>Customer_3rd_base_MPC</td><td class='num'>44,292</td><td class='num'>21,968</td><td class='num'>30.1%</td><td class='num'>22,324</td><td class='num'>30.6%</td><td class='num'>+0.5 [+0.0, +0.9] <span class="badge badge-warn">sig</span></td></tr>
+<tr><td>default</td><td class='num'>33,669</td><td class='num'>16,986</td><td class='num'>23.3%</td><td class='num'>16,683</td><td class='num'>22.9%</td><td class='num'>-0.4 [-0.9, +0.0]</td></tr>
+<tr><td>collection_all_products_3rd_base_61_90</td><td class='num'>23,933</td><td class='num'>11,934</td><td class='num'>16.4%</td><td class='num'>11,999</td><td class='num'>16.5%</td><td class='num'>+0.1 [-0.3, +0.5]</td></tr>
+<tr><td>collection_all_products_3rd_base_31_60_vmd_tech_control</td><td class='num'>17,140</td><td class='num'>8,623</td><td class='num'>11.8%</td><td class='num'>8,517</td><td class='num'>11.7%</td><td class='num'>-0.1 [-0.5, +0.2]</td></tr>
+<tr><td>collection_all_products_3rd_base_31_60_vmd_tech_test</td><td class='num'>17,100</td><td class='num'>8,609</td><td class='num'>11.8%</td><td class='num'>8,491</td><td class='num'>11.6%</td><td class='num'>-0.2 [-0.5, +0.2]</td></tr>
+<tr><td>broken_ptp_cc</td><td class='num'>4,207</td><td class='num'>2,098</td><td class='num'>2.9%</td><td class='num'>2,109</td><td class='num'>2.9%</td><td class='num'>+0.0 [-0.2, +0.2]</td></tr>
+<tr class='sig-fail'><td>last_day_PTP_reminder_cc</td><td class='num'>3,534</td><td class='num'>1,708</td><td class='num'>2.3%</td><td class='num'>1,826</td><td class='num'>2.5%</td><td class='num'>+0.2 [+0.0, +0.3] <span class="badge badge-warn">sig</span></td></tr>
+<tr><td>collection_all_products_3rd_base_31_60</td><td class='num'>1,941</td><td class='num'>968</td><td class='num'>1.3%</td><td class='num'>973</td><td class='num'>1.3%</td><td class='num'>+0.0 [-0.1, +0.1]</td></tr>
+</tbody></table><p class='muted' style='margin-top:0.4rem'>&Delta;pp = share gap (group B &minus; group A) with a 95% CI on the difference of proportions. A CI that excludes 0 (flagged <b>sig</b>) means the skew is significant for that strategy; a CI spanning 0 means the gap is within sampling noise.</p>
+                
+            </div>
+        </div>
+
+    <div class="card">
+        <h2>6. DPD &times; Product Distribution <span class="badge badge-ok">All OK</span></h2>
+        <p class="muted">Client distribution over DPD at test entry, per
+        product. Pick a product to see its own DPD profile; the groups must
+        overlap &mdash; a systematic gap means the split is not random inside that
+        product. Share view (% within group) is the comparable one, counts differ
+        because the groups differ in size.</p>
+        <div class="ctl-row">
+            <label>Product
+                <select id="dp-product"><option value="__ALL__">ALL products</option><option value="P_CURRENT">P_CURRENT</option></select>
+            </label>
+            <label>DPD axis
+                <select id="dp-gran">
+                    <option value="bucket">buckets</option>
+                    <option value="raw">raw DPD</option>
+                </select>
+            </label>
+            <label>Metric
+                <select id="dp-metric">
+                    <option value="share">% within group</option>
+                    <option value="count">clients</option>
+                </select>
+            </label>
+            <span id="dp-legend"></span>
+        </div>
+        <div class="chart-wrap" id="dp-chart"></div>
+        <p class="dp-stat" id="dp-stat"></p>
+        <table style="margin-top:1rem"><thead><tr><th>Product</th><th>Clients</th><th>% of test</th><th>grp A n</th><th>grp A %</th><th>grp B n</th><th>grp B %</th><th>p (split)</th><th>Median DPD</th><th>p (DPD profile)</th></tr></thead>
+        <tbody><tr class=''><td>P_CURRENT</td><td class='num'>154,608</td><td class='num'>100.0%</td><td class='num'>77,197</td><td class='num'>100.0%</td><td class='num'>77,411</td><td class='num'>100.0%</td><td class='num'>1.0000</td><td class='num'>21</td><td class='num'>0.0827</td></tr>
+</tbody></table>
+        <p class="muted" style="margin-top:0.5rem">
+        <b>% inside a group column</b> = share of that group's clients sitting in
+        the product; it must match across groups.
+        <b>p (split)</b> = chi-square GoF of the product's group split vs the
+        design split. <b>p (DPD profile)</b> = chi-square independence of DPD
+        buckets &times; groups inside the product (buckets under
+        20 clients merged); * = significant at alpha=0.05.</p>
+    </div>
+
+<script>
+(function () {
+  var DATA = {"groups":["A","B"],"rows":[{"g":"A","p":"P_CURRENT","d":1,"n":7428},{"g":"A","p":"P_CURRENT","d":2,"n":317},{"g":"A","p":"P_CURRENT","d":3,"n":2794},{"g":"A","p":"P_CURRENT","d":4,"n":6954},{"g":"A","p":"P_CURRENT","d":7,"n":1927},{"g":"A","p":"P_CURRENT","d":8,"n":1590},{"g":"A","p":"P_CURRENT","d":9,"n":1605},{"g":"A","p":"P_CURRENT","d":10,"n":1572},{"g":"A","p":"P_CURRENT","d":11,"n":4114},{"g":"A","p":"P_CURRENT","d":14,"n":1102},{"g":"A","p":"P_CURRENT","d":15,"n":1487},{"g":"A","p":"P_CURRENT","d":16,"n":1485},{"g":"A","p":"P_CURRENT","d":17,"n":1236},{"g":"A","p":"P_CURRENT","d":18,"n":3726},{"g":"A","p":"P_CURRENT","d":21,"n":1297},{"g":"A","p":"P_CURRENT","d":22,"n":1048},{"g":"A","p":"P_CURRENT","d":23,"n":646},{"g":"A","p":"P_CURRENT","d":24,"n":809},{"g":"A","p":"P_CURRENT","d":25,"n":2273},{"g":"A","p":"P_CURRENT","d":31,"n":708},{"g":"A","p":"P_CURRENT","d":32,"n":1973},{"g":"A","p":"P_CURRENT","d":35,"n":625},{"g":"A","p":"P_CURRENT","d":36,"n":625},{"g":"A","p":"P_CURRENT","d":37,"n":678},{"g":"A","p":"P_CURRENT","d":38,"n":659},{"g":"A","p":"P_CURRENT","d":39,"n":2040},{"g":"A","p":"P_CURRENT","d":42,"n":616},{"g":"A","p":"P_CURRENT","d":43,"n":567},{"g":"A","p":"P_CURRENT","d":44,"n":622},{"g":"A","p":"P_CURRENT","d":45,"n":649},{"g":"A","p":"P_CURRENT","d":46,"n":2415},{"g":"A","p":"P_CURRENT","d":49,"n":643},{"g":"A","p":"P_CURRENT","d":50,"n":562},{"g":"A","p":"P_CURRENT","d":51,"n":861},{"g":"A","p":"P_CURRENT","d":52,"n":866},{"g":"A","p":"P_CURRENT","d":53,"n":1709},{"g":"A","p":"P_CURRENT","d":56,"n":609},{"g":"A","p":"P_CURRENT","d":57,"n":535},{"g":"A","p":"P_CURRENT","d":58,"n":510},{"g":"A","p":"P_CURRENT","d":60,"n":1147},{"g":"A","p":"P_CURRENT","d":63,"n":386},{"g":"A","p":"P_CURRENT","d":64,"n":472},{"g":"A","p":"P_CURRENT","d":65,"n":536},{"g":"A","p":"P_CURRENT","d":66,"n":575},{"g":"A","p":"P_CURRENT","d":67,"n":1714},{"g":"A","p":"P_CURRENT","d":70,"n":509},{"g":"A","p":"P_CURRENT","d":71,"n":460},{"g":"A","p":"P_CURRENT","d":72,"n":676},{"g":"A","p":"P_CURRENT","d":73,"n":415},{"g":"A","p":"P_CURRENT","d":74,"n":1798},{"g":"A","p":"P_CURRENT","d":77,"n":636},{"g":"A","p":"P_CURRENT","d":78,"n":544},{"g":"A","p":"P_CURRENT","d":79,"n":566},{"g":"A","p":"P_CURRENT","d":80,"n":584},{"g":"A","p":"P_CURRENT","d":81,"n":1974},{"g":"A","p":"P_CURRENT","d":84,"n":511},{"g":"A","p":"P_CURRENT","d":85,"n":445},{"g":"A","p":"P_CURRENT","d":86,"n":443},{"g":"A","p":"P_CURRENT","d":87,"n":409},{"g":"A","p":"P_CURRENT","d":88,"n":515},{"g":"B","p":"P_CURRENT","d":1,"n":7383},{"g":"B","p":"P_CURRENT","d":2,"n":314},{"g":"B","p":"P_CURRENT","d":3,"n":2786},{"g":"B","p":"P_CURRENT","d":4,"n":6854},{"g":"B","p":"P_CURRENT","d":7,"n":1774},{"g":"B","p":"P_CURRENT","d":8,"n":1657},{"g":"B","p":"P_CURRENT","d":9,"n":1656},{"g":"B","p":"P_CURRENT","d":10,"n":1636},{"g":"B","p":"P_CURRENT","d":11,"n":4114},{"g":"B","p":"P_CURRENT","d":14,"n":1184},{"g":"B","p":"P_CURRENT","d":15,"n":1509},{"g":"B","p":"P_CURRENT","d":16,"n":1530},{"g":"B","p":"P_CURRENT","d":17,"n":1207},{"g":"B","p":"P_CURRENT","d":18,"n":3791},{"g":"B","p":"P_CURRENT","d":21,"n":1288},{"g":"B","p":"P_CURRENT","d":22,"n":1047},{"g":"B","p":"P_CURRENT","d":23,"n":646},{"g":"B","p":"P_CURRENT","d":24,"n":823},{"g":"B","p":"P_CURRENT","d":25,"n":2351},{"g":"B","p":"P_CURRENT","d":31,"n":674},{"g":"B","p":"P_CURRENT","d":32,"n":1960},{"g":"B","p":"P_CURRENT","d":35,"n":607},{"g":"B","p":"P_CURRENT","d":36,"n":602},{"g":"B","p":"P_CURRENT","d":37,"n":726},{"g":"B","p":"P_CURRENT","d":38,"n":634},{"g":"B","p":"P_CURRENT","d":39,"n":2022},{"g":"B","p":"P_CURRENT","d":42,"n":632},{"g":"B","p":"P_CURRENT","d":43,"n":567},{"g":"B","p":"P_CURRENT","d":44,"n":601},{"g":"B","p":"P_CURRENT","d":45,"n":601},{"g":"B","p":"P_CURRENT","d":46,"n":2417},{"g":"B","p":"P_CURRENT","d":49,"n":636},{"g":"B","p":"P_CURRENT","d":50,"n":650},{"g":"B","p":"P_CURRENT","d":51,"n":876},{"g":"B","p":"P_CURRENT","d":52,"n":862},{"g":"B","p":"P_CURRENT","d":53,"n":1779},{"g":"B","p":"P_CURRENT","d":56,"n":544},{"g":"B","p":"P_CURRENT","d":57,"n":553},{"g":"B","p":"P_CURRENT","d":58,"n":506},{"g":"B","p":"P_CURRENT","d":60,"n":1060},{"g":"B","p":"P_CURRENT","d":63,"n":401},{"g":"B","p":"P_CURRENT","d":64,"n":521},{"g":"B","p":"P_CURRENT","d":65,"n":566},{"g":"B","p":"P_CURRENT","d":66,"n":540},{"g":"B","p":"P_CURRENT","d":67,"n":1636},{"g":"B","p":"P_CURRENT","d":70,"n":538},{"g":"B","p":"P_CURRENT","d":71,"n":525},{"g":"B","p":"P_CURRENT","d":72,"n":643},{"g":"B","p":"P_CURRENT","d":73,"n":462},{"g":"B","p":"P_CURRENT","d":74,"n":1826},{"g":"B","p":"P_CURRENT","d":77,"n":640},{"g":"B","p":"P_CURRENT","d":78,"n":551},{"g":"B","p":"P_CURRENT","d":79,"n":565},{"g":"B","p":"P_CURRENT","d":80,"n":539},{"g":"B","p":"P_CURRENT","d":81,"n":2061},{"g":"B","p":"P_CURRENT","d":84,"n":537},{"g":"B","p":"P_CURRENT","d":85,"n":445},{"g":"B","p":"P_CURRENT","d":86,"n":443},{"g":"B","p":"P_CURRENT","d":87,"n":438},{"g":"B","p":"P_CURRENT","d":88,"n":475}],"colors":["#3b82f6","#a78bfa"]};
+  var BUCKETS = ["1: <=0","2: 1-7","3: 8-15","4: 16-30","5: 31-60","6: 61-90",
+                 "7: 91+","8: n/a"];
+  var elProd = document.getElementById('dp-product');
+  var elGran = document.getElementById('dp-gran');
+  var elMetric = document.getElementById('dp-metric');
+  var elChart = document.getElementById('dp-chart');
+  var elStat = document.getElementById('dp-stat');
+  var elLegend = document.getElementById('dp-legend');
+  if (!elChart) return;
+
+  var colorOf = {};
+  DATA.groups.forEach(function (g, i) {
+    colorOf[g] = DATA.colors[i % DATA.colors.length];
+  });
+  elLegend.innerHTML = DATA.groups.map(function (g) {
+    return '<span style="display:inline-flex;align-items:center;gap:0.3rem;'
+      + 'margin-right:0.75rem"><span style="width:10px;height:10px;border-radius:2px;'
+      + 'background:' + colorOf[g] + ';display:inline-block"></span>' + g + '</span>';
+  }).join('');
+
+  function bucketOf(d) {
+    if (d === null) return "8: n/a";
+    if (d <= 0) return "1: <=0";
+    if (d <= 7) return "2: 1-7";
+    if (d <= 15) return "3: 8-15";
+    if (d <= 30) return "4: 16-30";
+    if (d <= 60) return "5: 31-60";
+    if (d <= 90) return "6: 61-90";
+    return "7: 91+";
+  }
+
+  function aggregate(product, gran) {
+    // key -> {group: count}; also group totals for the share metric.
+    var cats = {}, totals = {}, order = [];
+    DATA.rows.forEach(function (r) {
+      if (product !== '__ALL__' && r.p !== product) return;
+      var key = gran === 'raw' ? (r.d === null ? 'n/a' : String(r.d)) : bucketOf(r.d);
+      if (!(key in cats)) { cats[key] = {}; order.push(key); }
+      cats[key][r.g] = (cats[key][r.g] || 0) + r.n;
+      totals[r.g] = (totals[r.g] || 0) + r.n;
+    });
+    if (gran === 'raw') {
+      order.sort(function (a, b) {
+        if (a === 'n/a') return 1;
+        if (b === 'n/a') return -1;
+        return (+a) - (+b);
+      });
+    } else {
+      order = BUCKETS.filter(function (b) { return b in cats; });
+    }
+    return {cats: cats, order: order, totals: totals};
+  }
+
+  function esc(s) {
+    return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;');
+  }
+
+  function fmt(n) { return n.toLocaleString('en-US'); }
+
+  function render() {
+    var product = elProd.value, gran = elGran.value, metric = elMetric.value;
+    var agg = aggregate(product, gran);
+    var order = agg.order, cats = agg.cats, totals = agg.totals;
+    var groups = DATA.groups.filter(function (g) { return totals[g]; });
+
+    if (!order.length || !groups.length) {
+      elChart.innerHTML = '<p class="muted">No clients in this slice.</p>';
+      elStat.textContent = '';
+      return;
+    }
+
+    var W = 1040, H = 380, ml = 62, mr = 12, mt = 14, mb = 52;
+    var pw = W - ml - mr, ph = H - mt - mb;
+
+    function val(key, g) {
+      var v = (cats[key] || {})[g] || 0;
+      return metric === 'share' ? (totals[g] ? v / totals[g] * 100 : 0) : v;
+    }
+
+    var maxV = 0;
+    order.forEach(function (k) {
+      groups.forEach(function (g) { maxV = Math.max(maxV, val(k, g)); });
+    });
+    if (maxV <= 0) maxV = 1;
+    // Axis step: the smallest 1/2/2.5/5-decade value that keeps ~5 ticks.
+    var raw = maxV / 5, mag = Math.pow(10, Math.floor(Math.log10(raw))), step = mag * 10;
+    [1, 2, 2.5, 5, 10].some(function (m) {
+      if (raw <= mag * m) { step = mag * m; return true; }
+      return false;
+    });
+    var top = Math.ceil(maxV / step) * step;
+    var dec = step >= 1 ? 0 : (step >= 0.1 ? 2 : 3);
+
+    var slot = pw / order.length;
+    var barGap = Math.min(2, slot * 0.06);
+    var barW = Math.max(1, (slot * 0.78 - barGap * (groups.length - 1)) / groups.length);
+
+    var s = '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" '
+          + 'aria-label="DPD distribution by group">';
+
+    // y grid + labels
+    var nTicks = Math.round(top / step);
+    for (var i = 0; i <= nTicks; i++) {
+      var v = step * i, y = mt + ph - (v / top) * ph;
+      s += '<line x1="' + ml + '" y1="' + y + '" x2="' + (W - mr) + '" y2="' + y
+         + '" stroke="#334155" stroke-width="1" opacity="' + (i ? 0.5 : 1) + '"/>';
+      var lbl = metric === 'share' ? v.toFixed(dec) + '%' : fmt(Math.round(v));
+      s += '<text x="' + (ml - 8) + '" y="' + (y + 4) + '" text-anchor="end" '
+         + 'font-size="11" fill="#94a3b8">' + lbl + '</text>';
+    }
+
+    // bars
+    var labelEvery = Math.ceil(order.length / 34);
+    order.forEach(function (key, ci) {
+      var x0 = ml + ci * slot + (slot * 0.11);
+      groups.forEach(function (g, gi) {
+        var v = val(key, g);
+        var h = (v / top) * ph;
+        var x = x0 + gi * (barW + barGap);
+        var y = mt + ph - h;
+        var raw = (cats[key] || {})[g] || 0;
+        var tip = key + ' · ' + g + ': ' + fmt(raw) + ' clients'
+                + (totals[g] ? ' (' + (raw / totals[g] * 100).toFixed(2) + '% of ' + g + ')' : '');
+        s += '<rect x="' + x.toFixed(1) + '" y="' + y.toFixed(1) + '" width="'
+           + barW.toFixed(1) + '" height="' + Math.max(0, h).toFixed(1)
+           + '" fill="' + colorOf[g] + '" rx="1"><title>' + esc(tip)
+           + '</title></rect>';
+      });
+      if (ci % labelEvery === 0) {
+        var lx = ml + ci * slot + slot / 2;
+        var txt = gran === 'bucket' ? key.replace(/^\d+:\s*/, '') : key;
+        s += '<text x="' + lx.toFixed(1) + '" y="' + (mt + ph + 16)
+           + '" text-anchor="middle" font-size="11" fill="#94a3b8">'
+           + esc(txt) + '</text>';
+      }
+    });
+
+    // axes
+    s += '<line x1="' + ml + '" y1="' + (mt + ph) + '" x2="' + (W - mr) + '" y2="'
+       + (mt + ph) + '" stroke="#475569" stroke-width="1"/>';
+    s += '<text x="' + (ml + pw / 2) + '" y="' + (H - 12) + '" text-anchor="middle" '
+       + 'font-size="11" fill="#94a3b8">dpd_start_day'
+       + (gran === 'bucket' ? ' (bucket)' : '') + '</text>';
+    s += '</svg>';
+
+    elChart.innerHTML = s;
+
+    var parts = groups.map(function (g) { return g + ': ' + fmt(totals[g]); });
+    var grand = groups.reduce(function (a, g) { return a + totals[g]; }, 0);
+    elStat.textContent = (product === '__ALL__' ? 'All products' : product)
+      + ' — ' + fmt(grand) + ' clients (' + parts.join(' · ') + '), '
+      + order.length + (gran === 'bucket' ? ' buckets' : ' distinct DPD values')
+      + '. Hover a bar for exact counts.';
+  }
+
+  [elProd, elGran, elMetric].forEach(function (el) {
+    el.addEventListener('change', render);
+  });
+  render();
+})();
+</script>
+
+
+<div class="footer">
+    Generated on 2026-08-28 &middot; segmentation_qa.py &middot; Collection Analytics
+</div>
+</body>
+</html>
